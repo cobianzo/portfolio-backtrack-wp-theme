@@ -1,0 +1,68 @@
+{
+	"name": "portfolio-theme",
+	"version": "1.0.0",
+	"description": "A simplified fork of twentytwentyfive ready for developers",
+	"main": "src/index.js",
+	"scripts": {
+		"build": "wp-scripts build",
+		"tw": "tailwindcss -i ./src/tailwind-style.css -o ./build/tailwind-style.css --watch",
+		"browser-sync": "browser-sync start --proxy 'http://portfolio-backtrack.local' --files '**/*.php, assets/css/**/*.css, parts/**/*.html, patterns/**/*.php, src/**/*.js, styles/**/*.json, templates/**/*.html, *.json, *.js, *.php, style.css' --notify false",
+		"wp:start": "wp-scripts start",
+		"start": "npm-run-all --parallel wp:start tw && browser-sync",
+		"lint:js": "wp-scripts lint-js",
+		"lint:js:fix": "wp-scripts format",
+		"lint:css": "stylelint '**/*.css'",
+		"format": "wp-scripts format && stylelint \"**/*.css\" --fix",
+		"lint:php": "composer run-script lint . && composer run-script analyze .",
+		"test:unit": "phpunit",
+		"test:e2e": "playwright test",
+		"prepare": "husky install"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cobianzo/portfolio-theme.git"
+	},
+	"keywords": [
+		"theme",
+		"wordpress",
+		"tailwind"
+	],
+	"author": "@cobianzo",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/cobianzo/portfolio-theme/issues"
+	},
+	"homepage": "https://github.com/cobianzo/portfolio-theme#readme",
+	"lint-staged": {
+		"*.js": [
+			"wp-scripts lint-js",
+			"wp-scripts format"
+		],
+		"*.css": "npx stylelint --fix"
+	},
+	"prettier": "@wordpress/prettier-config",
+	"devDependencies": {
+		"@playwright/test": "^1.40.0",
+		"@wordpress/eslint-plugin": "^21.5.0",
+		"@wordpress/prettier-config": "^4.12.0",
+		"@wordpress/scripts": "^26.19.0",
+		"@wordpress/stylelint-config": "^23.4.0",
+		"ajv": "^8.17.1",
+		"autoprefixer": "^10.4.20",
+		"browser-sync": "^3.0.3",
+		"css-loader": "^7.1.2",
+		"eslint": "^8.54.0",
+		"eslint-config-prettier": "^9.1.0",
+		"gulp": "^5.0.0",
+		"husky": "^8.0.3",
+		"lint-staged": "^15.2.10",
+		"mini-css-extract-plugin": "^2.9.2",
+		"npm-run-all": "^4.1.5",
+		"postcss": "^8.4.49",
+		"postcss-loader": "^8.1.1",
+		"style-loader": "^4.0.0",
+		"stylelint": "^15.11.0",
+		"stylelint-config-standard-scss": "^11.1.0",
+		"tailwindcss": "^3.3.5"
+	}
+}
