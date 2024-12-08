@@ -6,7 +6,7 @@
 	"scripts": {
 		"build": "wp-scripts build",
 		"tw": "tailwindcss -i ./src/tailwind-style.css -o ./build/tailwind-style.css --watch",
-		"browser-sync": "browser-sync start --proxy 'http://portfolio-backtrack.local' --files '**/*.php, assets/css/**/*.css, parts/**/*.html, patterns/**/*.php, src/**/*.js, styles/**/*.json, templates/**/*.html, *.json, *.js, *.php, style.css' --notify false",
+		"browser-sync": "browser-sync start --proxy 'http://portfolio-backtrack.local' --files '**/*.php, assets/css/**/*.css, parts/**/*, patterns/**/*.php, src/**/*.js, styles/**/*.json, templates/**/*.html, *.json, *.js, *.php, style.css' --notify false",
 		"wp:start": "wp-scripts start",
 		"start": "npm-run-all --parallel wp:start tw && browser-sync",
 		"lint:js": "wp-scripts lint-js",

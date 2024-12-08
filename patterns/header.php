@@ -7,7 +7,7 @@
  * Description: Header with site title and navigation.
  *
  * @package    WordPress
- * @subpackage Twenty_Twenty_Five
+ * @subpackage Portfolio_Theme
  * @since      portfolio-theme 1.0
  */
 

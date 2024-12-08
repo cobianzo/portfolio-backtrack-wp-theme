@@ -5,12 +5,14 @@
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
  * @package    WordPress
- * @subpackage Twenty_Twenty_Five
+ * @subpackage Portfolio_Theme
  * @since      portfolio-theme 1.0
  */
 
 
-require_once __DIR__ . '/class-functions-theme.php';
+require_once __DIR__ . '/inc/class-functions-theme.php';
+
+// =============== ================
 
 
 // Adds theme support for post formats.

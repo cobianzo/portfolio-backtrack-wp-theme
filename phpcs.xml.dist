@@ -1,16 +1,17 @@
 <?xml version="1.0"?>
+
 <ruleset name="Theme Standard- My WordPress VIP Rules">
 	<description>Custom WordPress VIP coding standards configuration</description>
 
-	<!-- Include the main WordPress VIP coding standard -->
-	<rule ref="WordPress-VIP-Go"/>
-
 	<!-- Optional: Include additional standards -->
 	<rule ref="WordPress-Extra"/>
+	<!-- Include the main WordPress VIP coding standard -->
+	<rule ref="WordPress-VIP-Go"/>
 
 	<!-- Exclude certain rules if needed -->
 	<exclude name="WordPress.WhiteSpace.PrecisionAlignment" />
 	<exclude name="Generic.Commenting.Todo" />
+	<exclude name="Generic.Arrays.DisallowLongArraySyntax"/>
 
 	<!-- Ignore specific files or folders -->
 	<exclude-pattern>*/build/*</exclude-pattern>

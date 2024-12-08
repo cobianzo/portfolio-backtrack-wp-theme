@@ -10,7 +10,7 @@
  * Description: A portfolio homepage pattern.
  *
  * @package    WordPress
- * @subpackage Twenty_Twenty_Five
+ * @subpackage Portfolio_Theme
  * @since      portfolio-theme 1.0
  */
 

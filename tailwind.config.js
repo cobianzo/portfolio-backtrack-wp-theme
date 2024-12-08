@@ -5,6 +5,7 @@ module.exports = {
 		'./templates/**/*.php',
 		'./patterns/**/*.php',
 		'./parts/**/*.html',
+		'./parts/**/*.php',
 		'./*.php',
 	],
 	theme: {

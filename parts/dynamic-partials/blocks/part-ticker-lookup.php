@@ -5,11 +5,12 @@
  * Inserter: no
  *
  * @package    WordPress
- * @subpackage Twenty_Twenty_Five
+ * @subpackage Portfolio_Theme
  * @since      portfolio-theme 1.0
  */
 
 ?>
+<h1> Todo esto deberia ir </h1>
 <!-- wp:group {"metadata":{"name":"Group wrapper"},"className":"is-style-default","style":{"spacing":{"padding":{"right":"var:preset|spacing|30","left":"var:preset|spacing|30","top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|20"}},"backgroundColor":"accent-5","layout":{"type":"constrained"}} -->
 <div class="wp-block-group is-style-default has-accent-5-background-color has-background" style="padding-top:var(--wp--preset--spacing--20);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--20);padding-left:var(--wp--preset--spacing--30)"><!-- wp:columns -->
 <div class="wp-block-columns"><!-- wp:column {"width":"100%"} -->
@@ -20,7 +21,12 @@
 <!-- /wp:heading -->
 
 <!-- wp:paragraph -->
-<p>/input here</p>
+<p>
+
+	<input type="text" name="ticker-lookup" id="ticker-lookup" aria-label="Stock Ticker Lookup" placeholder="Enter stock ticker" aria-required="true"
+	class="ticker-lookup-input rounded-lg border border-gray-300 p-2 pl-10 text-sm text-gray-700" />
+
+</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
