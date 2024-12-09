@@ -3,7 +3,12 @@
 		"plugin:@wordpress/eslint-plugin/recommended-with-formatting",
 		"prettier"
 	],
-	"ignorePatterns": [ "build/**/*", "node_modules/**/*", "vendor/**/*" ],
+	"ignorePatterns": [
+		"build/**/*",
+		"node_modules/**/*",
+		"vendor/**/*",
+		"webpack.config.js"
+	],
 	"rules": {
 		"max-len": [
 			"error",

@@ -81,9 +81,9 @@ class Dynamic_Partials {
 			if ( file_exists( $view_script_path ) ) {
 				$view_script_handle = "view-script-$block_name";
 				$view_script_url    = get_stylesheet_directory_uri() . "/build/$block_name.js";
-				$asset_file = include get_stylesheet_directory() . "/build/$block_name.asset.php";
-				$dependencies = empty( $asset_file['dependencies'] ) ? [] : $asset_file['dependencies'];
-				$version = empty( $asset_file['version'] ) ? [] : $asset_file['version'];
+				$asset_file         = include get_stylesheet_directory() . "/build/$block_name.asset.php";
+				$dependencies       = empty( $asset_file['dependencies'] ) ? [] : $asset_file['dependencies'];
+				$version            = empty( $asset_file['version'] ) ? [] : $asset_file['version'];
 				wp_register_script( $view_script_handle, $view_script_url, $dependencies, $version, true );
 				$register_block_options['view_script'] = $view_script_handle;
 			} else {

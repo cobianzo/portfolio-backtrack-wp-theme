@@ -12,6 +12,10 @@
 
 require_once __DIR__ . '/inc/class-functions-theme.php';
 
+// require_once get_template_directory() . '/inc/stock-api/class-yahoo-api.php';
+// $p = Yahoo_API::get_instance()->search_tickers( 'GOOGL', true );
+// ddie( $p );
+
 // =============== ================
 // Helpers for debugging. Use this instead of print_r or wp_die
 // use it only in development mode.

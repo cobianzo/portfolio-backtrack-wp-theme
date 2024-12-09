@@ -26,6 +26,7 @@
 
 		<input type="text" name="ticker-lookup" id="ticker-lookup" aria-label="Stock Ticker Lookup" placeholder="Enter stock ticker" aria-required="true"
 		class="ticker-lookup-input rounded-lg border border-gray-300 p-2 pl-10 text-sm text-gray-700" list="ticker-options" />
+		<!-- We'll fill the datalist with the response from Yahoo finance, once the user types the input -->
 		<datalist id="ticker-options">
 		</datalist>
 
@@ -43,17 +44,27 @@
 	<!-- /wp:heading -->
 
 	<!-- wp:paragraph -->
-	<p>/input years</p>
+	<p>
+		<input type="number" name="years-long" id="years-long" aria-label="Years to go back" placeholder="Enter years to go back" aria-required="true"
+		class="rounded-lg border border-gray-300 p-2 text-sm text-gray-700 min-w-[100px]" min="1" max="10" />
+	</p>
 	<!-- /wp:paragraph --></div>
 	<!-- /wp:group -->
 
 	<!-- wp:group {"metadata":{"name":"ticker field Group"},"layout":{"type":"constrained"}} -->
 	<div class="wp-block-group"><!-- wp:heading {"level":3} -->
 	<h3 class="wp-block-heading">Last year</h3>
+	<!-- wp:paragraph {"className":"text-sm text-gray-600 italic"} -->
+	<p class="text-sm text-gray-600 italic">Write the year you want to go back from.</p>
+	<!-- /wp:paragraph -->
 	<!-- /wp:heading -->
 
 	<!-- wp:paragraph -->
-	<p>/input years</p>
+	<p>
+		<input type="number" name="last-year" id="last-year" aria-label="Last year" placeholder="Enter last year" aria-required="true"
+		class="rounded-lg border border-gray-300 p-2 text-sm text-gray-700 min-w-[100px]"
+		min="2000" max="<?php echo esc_attr( gmdate( 'Y' ) ); ?>" />
+	</p>
 	<!-- /wp:paragraph --></div>
 	<!-- /wp:group --></div>
 	<!-- /wp:group --></div>
@@ -63,7 +74,9 @@
 	<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--40);margin-bottom:var(--wp--preset--spacing--40)"><!-- wp:buttons -->
 	<div class="wp-block-buttons"><!-- wp:button {"width":100} -->
 	<div id="show-results-button"
-		class="wp-block-button has-custom-width wp-block-button__width-100"><a class="wp-block-button__link wp-element-button">Show results</a></div>
+		class="wp-block-button has-custom-width wp-block-button__width-100">
+		<button class="wp-block-button__link wp-element-button">Show results</button>
+	</div>
 	<!-- /wp:button --></div>
 	<!-- /wp:buttons --></div>
 	<!-- /wp:group -->

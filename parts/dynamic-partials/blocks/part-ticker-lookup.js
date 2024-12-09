@@ -1,5 +1,16 @@
 import domReady from '@wordpress/dom-ready';
-import { searchYahooFinanceTickers, debounce } from './part-ticker-lookup/helpers';
+import { debounce } from './part-ticker-lookup/helpers';
+import { searchYahooFinanceTickers, tickerExists } from './part-ticker-lookup/stocksInfoAPI';
+
+// @TODO: aboid using global vars
+window.selectedTicker = null;
+
+const setSelectedTicker = ( symbol ) => {
+	window.selectedTicker = symbol;
+};
+const clearSelectedTicker = ( ) => {
+	window.selectedTicker = null;
+}
 
 // INPUT LOOKUP - Helper Función de búsqueda de tickers
 // =============================================
@@ -13,6 +24,7 @@ const setupTickerSearch = ( inputSelector, resultsSelector ) => {
 	const handleSearch = debounce( async ( event ) => {
 		const searchTerm = event.target.value.trim();
 
+		clearSelectedTicker();
 		resultsContainer.innerHTML = '';
 
 		if ( searchTerm.length < 2 ) return;
@@ -41,10 +53,11 @@ const setupTickerSearch = ( inputSelector, resultsSelector ) => {
 	} );
 	// bind the event when selecting:
 	searchInput.addEventListener( 'blur', async function ( event ) {
-		try {
-			const tickers = await searchYahooFinanceTickers( event.target.value );
-			if ( ! tickers.length ) event.target.value = '';
-		} catch ( error ) {
+		const tickerInInput = await tickerExists( event.target.value );
+		if ( tickerInInput ) {
+			setSelectedTicker( tickerInInput );
+			console.log( 'TODELETE: set selected ticker to ' + tickerInInput.symbol, tickerInInput );
+		} else {
 			event.target.value = '';
 		}
 	} );
@@ -53,10 +66,19 @@ const setupTickerSearch = ( inputSelector, resultsSelector ) => {
 // SHOW RESULTS button
 // ==================================
 const setupShowResultsButton = ( btnWraperSelector, resultsSelector ) => {
-	const btnWraper = document.querySelector( btnWraperSelector );
+	const btn = document.querySelector( btnWraperSelector ).querySelector( 'button' );
 	const resultsContainer = document.querySelector( resultsSelector );
-
+	const searchInput = document.querySelector( '#ticker-lookup' );
 	// WIP - on show returns, call the API of yahoo to retrieve the historical data of the selected stock
+
+	btn.addEventListener( 'click', async () => {
+		const currentTicker = await tickerExists( searchInput.value.trim() );
+		if ( currentTicker ) {
+			setSelectedTicker( currentTicker );
+		} else clearSelectedTicker();
+		if ( ! currentTicker ) resultsContainer.innerHTML = `Ticker <b>${ searchInput.value }</b> invalid`;
+		else resultsContainer.innerHTML = `Evaluating <b>${ searchInput.value }, ${ currentTicker.shortname }</b>`;
+	} );
 };
 // ==================================
 // ==================================

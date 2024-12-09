@@ -40,7 +40,6 @@
 		],
 		"*.css": "npx stylelint --fix"
 	},
-
 	"devDependencies": {
 		"@playwright/test": "^1.40.0",
 		"@wordpress/eslint-plugin": "^21.5.0",
