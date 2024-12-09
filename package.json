@@ -1,6 +1,6 @@
 {
 	"name": "portfolio-theme",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A simplified fork of twentytwentyfive ready for developers",
 	"main": "src/index.js",
 	"scripts": {
@@ -40,7 +40,7 @@
 		],
 		"*.css": "npx stylelint --fix"
 	},
-	"prettier": "@wordpress/prettier-config",
+
 	"devDependencies": {
 		"@playwright/test": "^1.40.0",
 		"@wordpress/eslint-plugin": "^21.5.0",

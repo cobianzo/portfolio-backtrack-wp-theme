@@ -13,6 +13,7 @@ class Functions_Theme {
 		add_action( 'after_setup_theme', array( __CLASS__, 'tailwind_wp_theme_enqueue_editor_styles' ) );
 
 		require_once dirname( __DIR__ ) . '/parts/dynamic-partials/class-dynamic-partials.php';
+		require_once dirname( __DIR__ ) . '/inc/stock-api/class-internal-stock-api.php';
 	}
 
 	/**

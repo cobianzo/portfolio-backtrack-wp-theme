@@ -13,7 +13,23 @@
 require_once __DIR__ . '/inc/class-functions-theme.php';
 
 // =============== ================
-
+// Helpers for debugging. Use this instead of print_r or wp_die
+// use it only in development mode.
+function dd( $var_arg ): void {
+	if ( wp_get_environment_type() === 'production' ) {
+		return;
+	}
+	echo '<pre>';
+	// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+	print_r( $var_arg );
+	echo '</pre>'; }
+function ddie( $var_arg ): void {
+	if ( wp_get_environment_type() === 'production' ) {
+		return;
+	}
+	dd( $var_arg );
+	wp_die();
+}
 
 // Adds theme support for post formats.
 if ( ! function_exists( 'tailwind_wp_theme_post_format_setup' ) ) :

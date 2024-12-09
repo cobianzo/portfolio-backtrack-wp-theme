@@ -3,5 +3,14 @@
 		"plugin:@wordpress/eslint-plugin/recommended-with-formatting",
 		"prettier"
 	],
-	"ignorePatterns": [ "build/**/*", "node_modules/**/*", "vendor/**/*" ]
+	"ignorePatterns": [ "build/**/*", "node_modules/**/*", "vendor/**/*" ],
+	"rules": {
+		"max-len": [
+			"error",
+			{
+				"code": 200
+			}
+		]
+	}
 }
+
