@@ -39,7 +39,7 @@ class Dynamic_Partials {
 		add_action( 'init', array( $this, 'register_blocks_as_template_parts' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'register_editor_script_for_block' ) );
 		add_action( 'enqueue_block_editor_assets', function () {
-			// The placeholder for the block in the Editor.
+			// CSS for the placeholder for the block in the Editor.
 			add_action( 'admin_enqueue_scripts',
 				function ( $hook ) {
 						$css = <<<CSS
@@ -75,19 +75,19 @@ class Dynamic_Partials {
 			];
 
 			// Check if the view script exists and register it if it does.
-			$view_script_path   = __DIR__ . "/blocks/$block_name.js";
-			$view_script_handle = "view-script-$block_name";
+
+
+			$view_script_path = get_stylesheet_directory() . "/build/$block_name.js";
 			if ( file_exists( $view_script_path ) ) {
-				$view_script_url = get_stylesheet_directory_uri() . "/parts/dynamic-partials/blocks/$block_name.js";
-				$filetime        = (string) filemtime( $view_script_path );
-				wp_register_script(
-					$view_script_handle,
-					$view_script_url,
-					array( 'wp-dom-ready', 'wp-api-fetch' ),
-					$filetime,
-					true
-				);
+				$view_script_handle = "view-script-$block_name";
+				$view_script_url    = get_stylesheet_directory_uri() . "/build/$block_name.js";
+				$asset_file = include get_stylesheet_directory() . "/build/$block_name.asset.php";
+				$dependencies = empty( $asset_file['dependencies'] ) ? [] : $asset_file['dependencies'];
+				$version = empty( $asset_file['version'] ) ? [] : $asset_file['version'];
+				wp_register_script( $view_script_handle, $view_script_url, $dependencies, $version, true );
 				$register_block_options['view_script'] = $view_script_handle;
+			} else {
+				ddie( 'error in  ' . $view_script_path );
 			}
 
 			register_block_type(

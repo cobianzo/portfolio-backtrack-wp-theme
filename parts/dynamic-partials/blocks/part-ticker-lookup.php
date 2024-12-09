@@ -59,7 +59,6 @@
 	<!-- /wp:group --></div>
 	<!-- /wp:column --></div>
 	<!-- /wp:columns -->
-
 	<!-- wp:group {"metadata":{"name":"Row submit button"},"style":{"spacing":{"margin":{"top":"var:preset|spacing|40","bottom":"var:preset|spacing|40"}}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
 	<div class="wp-block-group" style="margin-top:var(--wp--preset--spacing--40);margin-bottom:var(--wp--preset--spacing--40)"><!-- wp:buttons -->
 	<div class="wp-block-buttons"><!-- wp:button {"width":100} -->

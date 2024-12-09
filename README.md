@@ -40,12 +40,12 @@ composer analyze .
 composer format .
 ```
 
-# ABOUT THE STARTING BOILERPLATE
+# SOME NOTES THE STARTING BOILERPLATE tailwind-wp-theme
 
 Based on
 https://github.com/cobianzo/tailwind-wp-theme
 
-A fork of twentytwentyfive, with tailwind and linting, precommit check.
+Which is A fork of twentytwentyfive, with tailwind and linting, precommit check.
 I admit that `tailwind-wp-theme` had still some bugs which have been fixed on the developemnt of this theme. (commit 'Lookup ticker working ok - some more lint setup'), which can be a better starting point
 for future projects.
 
@@ -72,4 +72,15 @@ And we don't use shortcodes anymore, so use template parts inserted as blocks (p
 
 Then follow the intructions in **Start to work** and **Browser Sync** sections
 
----
+
+# Dynamic Template Parts as blocks.
+
+I have developed a fast way to include template parts. In the Editor they are playholders, inthe frontend you use a .php template. It's a replacemente of using template-parts or shortcodes in php.
+
+Just include the template part inside ./parts/dynamic-partials/<your-partial>.php
+
+The system will create a block automatically and you will be able to insert it in the editor.
+
+You can include some js to your partial. Just follow the convention of calling the .js with the same name
+as the block. It will be compiled by wp-scripts into **/build** (thanks to a modification in `webpack.config.js`)
+and it will be enqueued with the block as the view_script.
