@@ -2,6 +2,9 @@
 
 make the ajax call to show the data in a tablated row.
 
+start with the idea of creating custom portfolios associated to user.
+think on the UI.
+
 # Create the action in Show Results
 
 1) Abstract the functions for stock API in JS separated.

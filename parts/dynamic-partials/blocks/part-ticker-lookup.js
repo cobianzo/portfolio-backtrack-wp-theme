@@ -1,5 +1,5 @@
 import domReady from '@wordpress/dom-ready';
-import { debounce } from './part-ticker-lookup/helpers';
+import { debounce, showTabulatedData } from './part-ticker-lookup/helpers';
 import { searchYahooFinanceTickers, tickerExists, getTickerHistorical } from './part-ticker-lookup/stocksInfoAPI';
 
 // @TODO: aboid using global vars
@@ -76,6 +76,7 @@ const setupShowResultsButton = ( btnWraperSelector, resultsSelector ) => {
 	// WIP - on show returns, call the API of yahoo to retrieve the historical data of the selected stock
 
 	btn.addEventListener( 'click', async () => {
+
 		const currentTicker = await tickerExists( searchInput.value.trim() );
 		if ( currentTicker ) {
 			setSelectedTicker( currentTicker );
@@ -85,8 +86,18 @@ const setupShowResultsButton = ( btnWraperSelector, resultsSelector ) => {
 		else resultsContainer.innerHTML = `Evaluating <b>${ searchInput.value }, ${ currentTicker.shortname }</b>`;
 
 		// retrieve the data for the years
-		const historicalData = await getTickerHistorical( currentTicker.symbol );
+		const historicalData = await getTickerHistorical( 'JNJ' );
 		console.log( `%cTODELETE: historical data `, 'font-size:2rem;', historicalData );
+
+		// WIP - with ajax, we generate a partial
+		await showTabulatedData( historicalData, resultsSelector, {
+			titles_map: {
+				Title: 'year', price_start: '$ start', divs_increment: 'inc %', last_div_date: '', 'yield': 'yield %'
+			},
+			append: {
+				divs_increment: ' %', yield: ' %'
+			}
+		} );
 	} );
 };
 // ==================================

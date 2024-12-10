@@ -12,6 +12,11 @@ class Functions_Theme {
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'tailwind_wp_theme_enqueue_frontend_styles' ) );
 		add_action( 'after_setup_theme', array( __CLASS__, 'tailwind_wp_theme_enqueue_editor_styles' ) );
 
+		add_action( 'wp_head', function () {
+			echo "<script>var ajaxurl = '" . esc_url( admin_url( 'admin-ajax.php' ) ) . "';</script>";
+		});
+
+
 		require_once dirname( __DIR__ ) . '/parts/dynamic-partials/class-dynamic-partials.php';
 		require_once dirname( __DIR__ ) . '/inc/stock-api/class-internal-stock-api.php';
 		require_once dirname( __DIR__ ) . '/inc/class-stock-cpt.php';
@@ -26,12 +31,24 @@ class Functions_Theme {
 	 * @return void
 	 */
 	public static function tailwind_wp_theme_enqueue_frontend_styles(): void {
-		wp_enqueue_style(
+		wp_register_style(
 			'portfolio-theme-style',
 			get_template_directory_uri() . '/build/tailwind-style.css',
 			array(),
-			wp_get_theme()->get( 'Version' )
+			wp_get_theme()->get( 'Version' ),
+			false
 		);
+
+		wp_enqueue_style( 'portfolio-theme-style' );
+
+		// expose JS vars
+		wp_register_script( 'dummy-script', '', [], '1.0.0', true );
+		wp_add_inline_script( 'dummy-script',
+			'var myJS = {
+				ajaxurl : "' . admin_url( 'admin-ajax.php' ) . '",
+				nonce : "' . wp_create_nonce( 'my_action' ) . '"
+			}', 'before' );
+		wp_enqueue_script( 'dummy-script' );
 	}
 
 	/**

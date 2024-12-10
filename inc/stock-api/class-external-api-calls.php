@@ -140,14 +140,14 @@ class External_API_Calls {
 						];
 					} else {
 						// update
-						$summary[ $year ]['divs']     += $dividend;
-						$summary[ $year ]['price_end'] = (float) $date_info['4. close'];
-						// $summary[ $year ]['last_div_date'] = $date_info['4. close'];
+						$summary[ $year ]['divs']         += $dividend;
+						$summary[ $year ]['price_end']     = (float) $date_info['4. close'];
+						$summary[ $year ]['last_div_date'] = $date;
 					}
 
 					// calculate increment in divs
-					$previous_year = $year - 1;
-					$increment     = isset( $summary[ $previous_year ] )
+					$previous_year                      = $year - 1;
+					$increment                          = isset( $summary[ $previous_year ] )
 						? round( ( ( $summary[ $year ]['divs'] - $summary[ $previous_year ]['divs'] ) / $summary[ $previous_year ]['divs'] ) * 100, 2 )
 						: 0;
 					$summary[ $year ]['divs_increment'] = (float) $increment;

@@ -163,3 +163,17 @@ if ( ! function_exists( 'tailwind_wp_theme_format_binding' ) ) :
 		}
 	}
 endif;
+
+
+function my_ajax_handler() {
+	// Verifica el nonce para mayor seguridad.
+	// check_ajax_referer('my_action', 'nonce');
+
+	// Procesa los datos enviados.
+	$param = isset($_POST['param']) ? sanitize_text_field($_POST['param']) : '';
+
+	// Devuelve una respuesta.
+	wp_send_json_success(['message' => "Recibido: $param"]);
+}
+add_action('wp_ajax_my_action', 'my_ajax_handler');
+add_action('wp_ajax_nopriv_my_action', 'my_ajax_handler'); // Para usuarios no autenticados.

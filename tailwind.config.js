@@ -1,5 +1,14 @@
 module.exports = {
-	content: [ './src/**/*.{php,html,js,jsx,ts,tsx}', './template-parts/**/*.php', './templates/**/*.php', './patterns/**/*.php', './parts/**/*.html', './parts/**/*.php', './*.php' ],
+	content: [
+		'./src/**/*.{php,html,js,jsx,ts,tsx}',
+		'./template-parts/**/*.php',
+		'./templates/**/*.php',
+		'./patterns/**/*.php',
+		'./parts/**/*.html',
+		'./parts/**/*.php',
+		'./inc/**/*.php',
+		'./*.php',
+	],
 	theme: {
 		extend: {},
 	},
