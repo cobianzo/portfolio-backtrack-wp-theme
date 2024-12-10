@@ -1,3 +1,6 @@
+# NEXT:
+
+make the ajax call to show the data in a tablated row.
 
 # Create the action in Show Results
 
@@ -6,3 +9,7 @@
 TESTING:
 3) Build phpunit, and make a test unit of the search tickers with the Yahoo API, and another to see the result of our internal API.
 4) Create an initial e2e test with playwright for the
+5) Improve lookup, filters out some results if the typed text is not in the ticker.
+6) show error if the API key arrives to the limit.
+7) Create the option to insert the Alpha API key and use it.
+8) Show the tabulated date of the divs . Use chat GPT

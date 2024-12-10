@@ -66,7 +66,7 @@ phpcs, phpcbf, eslint, stylelint, prettier
 ---
 
 To use custom php, don't create files like `front-page.php`,
-And we don't use shortcodes anymore, so use template parts inserted as blocks (parts/dynamic-partials/blocks/).
+And we don't use shortcodes anymore, so use template parts inserted as patterns (under /patterns), or as blocks if they have js in frontend (using our parts/dynamic-partials/blocks/ setup)
 
 ---
 
@@ -75,7 +75,7 @@ Then follow the intructions in **Start to work** and **Browser Sync** sections
 
 # Dynamic Template Parts as blocks.
 
-I have developed a fast way to include template parts. In the Editor they are playholders, inthe frontend you use a .php template. It's a replacemente of using template-parts or shortcodes in php.
+I have developed a fast way to include template parts. In the Editor they are playholders, inthe frontend you use a .php template. It's a replacemente of using template-parts or shortcodes in php, whenever you need to add js to the php code. If it's just php, you can create a php patter under /patterns.
 
 Just include the template part inside ./parts/dynamic-partials/<your-partial>.php
 

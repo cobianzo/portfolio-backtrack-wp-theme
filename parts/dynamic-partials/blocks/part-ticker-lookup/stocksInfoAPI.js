@@ -15,7 +15,7 @@ export const searchYahooFinanceTickers = async ( searchTerm ) => {
 export const getTickerInfoBySymbol = async ( symbol ) => {
 	try {
 		const response = await apiFetch( {
-			path: `/stock-api/search?ticker=${symbol}&unique=true`,
+			path: `/stock-api/search?ticker=${ symbol }&unique=true`,
 		} );
 		console.log( 'TODELETE: API Response getTickerInfoBySymbol:', response );
 		return response; // returns object with the info or false (null if error)
@@ -23,7 +23,7 @@ export const getTickerInfoBySymbol = async ( symbol ) => {
 		console.error( 'Internal WP API Error on custom endpoint getTickerInfoBySymbol:', error );
 		return null;
 	}
-}
+};
 
 export async function tickerExists( symbol ) {
 	try {
@@ -34,3 +34,16 @@ export async function tickerExists( symbol ) {
 		return false;
 	}
 }
+
+export const getTickerHistorical = async ( symbol ) => {
+	try {
+		const response = await apiFetch( {
+			path: `/stock-api/divs?ticker=${ symbol }`,
+		} );
+		console.log( 'TODELETE: API Response getTickerHistorical:', response );
+		return response; // returns object with the info or false (null if error)
+	} catch ( error ) {
+		console.error( 'Internal WP API Error on custom endpoint getTickerHistorical:', error );
+		return null;
+	}
+};

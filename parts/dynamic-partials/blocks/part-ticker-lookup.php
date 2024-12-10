@@ -24,7 +24,7 @@
 	<!-- wp:paragraph -->
 	<p>
 
-		<input type="text" name="ticker-lookup" id="ticker-lookup" aria-label="Stock Ticker Lookup" placeholder="Enter stock ticker" aria-required="true"
+		<input type="text" name="ticker-lookup" id="ticker-lookup" aria-label="Stock Ticker Lookup" placeholder="Enter stock ticker" aria-required="true" autocomplete="off"
 		class="ticker-lookup-input rounded-lg border border-gray-300 p-2 pl-10 text-sm text-gray-700" list="ticker-options" />
 		<!-- We'll fill the datalist with the response from Yahoo finance, once the user types the input -->
 		<datalist id="ticker-options">

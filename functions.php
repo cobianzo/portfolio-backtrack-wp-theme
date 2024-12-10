@@ -12,27 +12,8 @@
 
 require_once __DIR__ . '/inc/class-functions-theme.php';
 
-// require_once get_template_directory() . '/inc/stock-api/class-yahoo-api.php';
-// $p = Yahoo_API::get_instance()->search_tickers( 'GOOGL', true );
-// ddie( $p );
-
-// =============== ================
-// Helpers for debugging. Use this instead of print_r or wp_die
-// use it only in development mode.
-function dd( $var_arg ): void {
-	if ( wp_get_environment_type() === 'production' ) {
-		return;
-	}
-	echo '<pre>';
-	// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-	print_r( $var_arg );
-	echo '</pre>'; }
-function ddie( $var_arg ): void {
-	if ( wp_get_environment_type() === 'production' ) {
-		return;
-	}
-	dd( $var_arg );
-	wp_die();
+if ( wp_get_environment_type() !== 'production' ) {
+	require_once __DIR__ . '/functions-debug-tests.php';
 }
 
 // Adds theme support for post formats.
