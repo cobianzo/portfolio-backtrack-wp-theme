@@ -12,20 +12,23 @@ class Stock_Frontend {
 	 */
 	public static function init() {
 		// define the ajax actions to call the render of the table from frontend.
-		add_action( 'wp_ajax_generate_table', array( __CLASS__, 'generate_table' ) );
-		add_action( 'wp_ajax_nopriv_generate_table', array( __CLASS__, 'generate_table' ) );
+		add_action( 'wp_ajax_generate_table', array( __CLASS__, 'generate_table_html' ) );
+		add_action( 'wp_ajax_nopriv_generate_table', array( __CLASS__, 'generate_table_html' ) );
 	}
 
 
 	// Ajax call to show the dividends data results. WIP
 	// options: titles_map and append
-	public static function generate_table( $data = null, $options = [] ) {
+	public static function generate_table_html( array|null $data = null, array $options = [] ) {
 
 		// evaluate nonce if Ajax @TODO:
-		if ( empty( $data ) ) {
+		if ( $data === null ) {
+			if ( ! isset( $_POST['nonce'] ) || ! isset( $_POST['data'] ) ) {
+				exit;
+			}
 			$data = json_decode( sanitize_text_field( wp_unslash( $_POST['data'] ) ), true );
 			$nonce = sanitize_text_field( wp_unslash( $_POST['nonce'] ) );
-			if ( ! wp_verify_nonce( $nonce, 'my_action' ) ) {
+			if ( ! wp_verify_nonce( $nonce, 'dynamic_blocks_nonce_action' ) ) {
 				wp_send_json_error( 'Error en la verificaci n de nonce.' );
 			}
 
@@ -88,7 +91,8 @@ class Stock_Frontend {
 		<?php
 		$html = ob_get_clean();
 
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX
+			&& isset( $_POST['action'] ) && 'generate_table' === $_POST['action'] ) {
 			wp_send_json_success( $html );
 			exit;
 		}

@@ -1,5 +1,3 @@
-import apiFetch from '@wordpress/api-fetch';
-
 // Función de debounce (Helper)
 export const debounce = ( func, delay ) => {
 	let timeoutId;
@@ -9,10 +7,14 @@ export const debounce = ( func, delay ) => {
 	};
 };
 
+/**
+ * Given data, shows it tabulated. Works ok but we are not using it.
+ * @param {*} data. keys are the first column, every item is an object where keys are the columns
+ * @param {*} selector the dom element where we load the table
+ * @param {*} options allows you to rename the heading and append text to the cells
+ */
 export const showTabulatedData = async ( data, selector, options = null ) => {
-	const container = document.querySelector( selector );
 
-	// Do my testing for ajax request:
 	const formdata = new FormData();
 	formdata.append('action', 'generate_table');
 	formdata.append('nonce', myJS.nonce);
@@ -27,16 +29,13 @@ export const showTabulatedData = async ( data, selector, options = null ) => {
 				method: 'POST',
 				body: formdata,
 		});
-
 		const result = await response.json();
 
 		if (result.success) {
-			container.innerHTML = result.data;
-		} else {
-			console.error('Error en la respuesta:', result.data);
+			document.querySelector( selector ).innerHTML = result.data;
+			return;
 		}
-	} catch (error) {
-			console.error('Error en la solicitud AJAX:', error);
-	} // end try/catch
+		console.error('Error en la respuesta:', result.data);
+	} catch (error) { console.error('Error en la solicitud AJAX:', error) };
 
 }

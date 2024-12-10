@@ -40,15 +40,6 @@ class Functions_Theme {
 		);
 
 		wp_enqueue_style( 'portfolio-theme-style' );
-
-		// expose JS vars
-		wp_register_script( 'dummy-script', '', [], '1.0.0', true );
-		wp_add_inline_script( 'dummy-script',
-			'var myJS = {
-				ajaxurl : "' . admin_url( 'admin-ajax.php' ) . '",
-				nonce : "' . wp_create_nonce( 'my_action' ) . '"
-			}', 'before' );
-		wp_enqueue_script( 'dummy-script' );
 	}
 
 	/**

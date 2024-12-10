@@ -56,6 +56,20 @@ class Dynamic_Partials {
 				}
 			);
 		} );
+
+		// simply explose the myJS.ajaxurl and nonce variables.
+		add_action( 'wp_enqueue_scripts', function () {
+			// expose JS vars
+			wp_register_script( 'dummy-script', '', [], '1.0.0', true );
+			wp_add_inline_script( 'dummy-script', 'var myJS = {
+					ajaxurl : "' . admin_url( 'admin-ajax.php' ) . '",
+					nonce : "' . wp_create_nonce( 'dynamic_blocks_nonce_action' ) . '" }', 'before' );
+			wp_enqueue_script( 'dummy-script' );
+		} );
+
+		// @BOOK:LOADTEMPLATEAJAX
+		add_action( 'wp_ajax_load_template_ajax', array( $this, 'load_template_ajax' ) );
+		add_action( 'wp_ajax_nopriv_load_template_ajax', array( $this, 'load_template_ajax' ) );
 	}
 
 	/**
@@ -155,6 +169,25 @@ JS;
 		include __DIR__ . "/blocks/$block_name.php";
 		$html = ob_get_clean();
 		return (string) $html;
+	}
+
+
+	public function load_template_ajax() {
+		if ( ! isset( $_POST['nonce'] ) || ! isset( $_POST['template_name'] ) ) {
+			wp_send_json_error( 'error params load template ajax' );
+			exit;
+		}
+		$nonce = sanitize_text_field( wp_unslash( $_POST['nonce'] ) );
+		if ( ! wp_verify_nonce( $nonce, 'dynamic_blocks_nonce_action' ) ) {
+			wp_send_json_error( 'Error en la verificaci n de nonce.' );
+		}
+
+		$template_name = sanitize_text_field( wp_unslash( $_POST['template_name'] ) );
+		ob_start();
+			get_template_part( $template_name, $_POST );
+			$html = ob_get_clean();
+		wp_send_json_success( $html );
+		exit;
 	}
 }
 

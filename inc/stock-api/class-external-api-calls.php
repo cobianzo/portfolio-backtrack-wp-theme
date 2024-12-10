@@ -91,8 +91,8 @@ class External_API_Calls {
 
 	// WIP. Can be improved. Include caching.
 	public function get_dividends_years_range( string $symbol, int $years = 0, int $last_year = 0 ) {
-		// Check if we have the info already in local
 
+		// Check if we have the info already in local, in the CPT 'stock'
 		$data = Stock_CPT::get_stock_historical( $symbol );
 		if ( false !== $data && is_array( $data ) ) {
 			return $data;
