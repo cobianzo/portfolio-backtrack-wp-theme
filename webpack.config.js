@@ -4,13 +4,16 @@ const glob = require( 'glob' );
 
 const entryPoints = defaultConfig.entry();
 
+const configFile = path.resolve( __dirname, 'dynamic-partials-plugin/config.json' );
+const config = require( configFile );
+
 // Escanear todos los directorios en /src y buscar index.js
-glob.sync( './parts/dynamic-partials/blocks/**/*.js' ).forEach( ( file ) => {
+glob.sync( '.' + config[ 'js-source-path' ] + '/*.js' ).forEach( ( file ) => {
 	const entry = path.basename( file, '.js' );
 	entryPoints[ entry ] = path.resolve( __dirname, file );
 } );
 
-// entryPoints[ 'load-template-ajax' ] = './parts/dynamic-partials/loadTemplateAjax.js';
+// entryPoints[ 'load-template-ajax' ] = './dynamic-partials-plugin/loadTemplateAjax.js';
 
 module.exports = {
 	...defaultConfig,

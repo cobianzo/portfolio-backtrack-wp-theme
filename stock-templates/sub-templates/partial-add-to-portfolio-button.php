@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: Button to add the selected stock to portfolio
- * Slug: parts/dynamic-partials/programmatic-partials/partial-add-to-portfolio-button.php
+ * Slug: stock-templates/sub-templates/partial-add-to-portfolio-button.php
  * Categories: partials
  * Description: Use the slug to include it as get_template_part.
  * Arguments: $ticker
@@ -12,7 +12,7 @@
  */
 
 if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-	// @TODO: refactor this, we shouldnt use extract.
+	// @TODO: refactor this, we shouldnt use extract.`
 	$POST_args = Dynamic_Partials::get_postdata_as_args_in_template( [ 'symbol' ] );
 	extract( $POST_args );
 	// this gives us access to $symbol
@@ -20,7 +20,7 @@ if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 		extract( $args );
 }
 
-$already_in_portfolio = Stock_Backend::is_in_current_user_portfolio( $symbol );
+$already_in_portfolio = User_Controller::is_in_current_user_portfolio( $symbol );
 
 if ( ! $already_in_portfolio ) :
 	?>

@@ -1,6 +1,9 @@
 <?php
 
 /**
+ * Functions to be used in the frontend. Generic. They are here because I didn't
+ * find a better place to put them.
+ *
  */
 class Stock_Frontend {
 
@@ -12,6 +15,7 @@ class Stock_Frontend {
 	 */
 	public static function init() {
 		// define the ajax actions to call the render of the table from frontend.
+		// Note: they work but I don't use them as ajax. I call them directly from php templates.
 		add_action( 'wp_ajax_generate_table', array( __CLASS__, 'generate_table_html' ) );
 		add_action( 'wp_ajax_nopriv_generate_table', array( __CLASS__, 'generate_table_html' ) );
 	}

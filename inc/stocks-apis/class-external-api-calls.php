@@ -94,7 +94,7 @@ class External_API_Calls {
 
 		// Check if we have the info already in local, in the CPT 'stock'
 		if ( $use_db ) {
-			$data = Stock_CPT::get_stock_historical( $symbol );
+			$data = Stock_Model::get_stock_historical( $symbol );
 			if ( false !== $data && is_array( $data ) ) {
 				return $data;
 			}
@@ -164,8 +164,8 @@ class External_API_Calls {
 		do_action( 'stock_historical_data_updated', $symbol, $summary );
 
 		// keep this results, saving them in our DB @TODO: delete and apply in the hoook action.
-		Stock_CPT::create_stock_post( $symbol );
-		Stock_CPT::update_stock_historical( $symbol, $summary );
+		Stock_Model::create_stock_post( $symbol );
+		Stock_Model::update_stock_historical( $symbol, $summary );
 
 		return $summary;
 	}

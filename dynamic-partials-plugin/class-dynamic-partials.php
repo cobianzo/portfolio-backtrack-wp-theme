@@ -22,14 +22,18 @@ class Dynamic_Partials {
 	 */
 	public function __construct() {
 		// 1. Scan all blocks in the subfolder 'blocks'
-		$blocks_dir = __DIR__ . '/blocks';
+		$config_file = file_get_contents( __DIR__ . '/config.json' );
+		$config      = json_decode( $config_file, true );
 
+		$blocks_dir = get_template_directory() . $config['php-partials-path'];
 		if ( is_dir( $blocks_dir ) ) {
 			$block_files = glob( $blocks_dir . '/*.php' );
 			foreach ( (array) $block_files as $block_file ) {
 				// For every template part, we will create a dynamic block for it.
 				$this->blocks[] = pathinfo( (string) $block_file, PATHINFO_FILENAME );
 			}
+		} else {
+			wp_die( 'error in dir: ' . $blocks_dir );
 		}
 
 		$this->register_hooks();
@@ -83,6 +87,7 @@ class Dynamic_Partials {
 	 * @return void
 	 */
 	public function register_blocks_as_template_parts(): void {
+
 		foreach ( $this->blocks as $block_name ) {
 			$namespaced_blockname = sprintf( '%s/%s', self::BLOCK_NAMESPACE, $block_name );
 			$block_title          = ucwords( str_replace( '-', ' ', $block_name ) );
@@ -91,17 +96,20 @@ class Dynamic_Partials {
 				'title'           => $block_title, // eg. Part Ticker Lookup
 				'category'        => 'widgets',
 				'render_callback' => function ( array $attributes ) use ( $block_name ): string {
+						$config_file = file_get_contents( __DIR__ . '/config.json' );
+						$config      = json_decode( $config_file, true );
+						$blocks_dir  = get_template_directory() . $config['php-partials-path'];
 						ob_start();
-						include __DIR__ . "/blocks/$block_name.php";
+							include $blocks_dir . '/' . $block_name . '.php';
 						$html = ob_get_clean();
 						return (string) $html;
 					}
 			];
 
 			// Check if the view script exists and register it if it does.
-
-
-			$view_script_path = get_stylesheet_directory() . "/build/$block_name.js";
+			$config_file      = file_get_contents( __DIR__ . '/config.json' );
+			$config           = json_decode( $config_file, true );
+			$view_script_path = get_template_directory() . $config['js-path'] . "/$block_name.js";
 			if ( file_exists( $view_script_path ) ) {
 				$view_script_handle = "view-script-$block_name";
 				$view_script_url    = get_stylesheet_directory_uri() . "/build/$block_name.js";
@@ -111,7 +119,7 @@ class Dynamic_Partials {
 				wp_register_script( $view_script_handle, $view_script_url, $dependencies, $version, true );
 				$register_block_options['view_script'] = $view_script_handle;
 			} else {
-				ddie( 'error in  ' . $view_script_path );
+				// There is no frontend script for this block.
 			}
 
 			register_block_type(

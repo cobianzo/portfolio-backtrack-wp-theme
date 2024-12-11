@@ -1,7 +1,7 @@
 import domReady from '@wordpress/dom-ready';
 import { setupShowResultsButton } from './part-ticker-lookup/divsTable';
 import { setupTickerSearch } from './part-ticker-lookup/lookupticker';
-import { loadTemplateAjax } from '../loadTemplateAjax';
+import { loadTemplateAjax } from '../../dynamic-partials-plugin/loadTemplateAjax';
 import { setupAddToPortfolio } from './part-ticker-lookup/addToPortfolio';
 // GENERIC VARIABLES AND FUNCTIONS, MEANT TO BE USED BY OTHER COMPONENTS IN THE PAGE.
 // ==================================
@@ -41,7 +41,7 @@ domReady( () => {
 		console.log( 'testing:' );
 
 		loadTemplateAjax(
-			'parts/dynamic-partials/programmatic-partials/partial-dividends-table',
+			'stock-templates/sub-templates/partial-dividends-table',
 			'#container-test',
 			{
 				data: { 2001: { title: 'a' }, 2003: { title: 'b' } },

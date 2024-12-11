@@ -58,7 +58,7 @@ phpcs, phpcbf, eslint, stylelint, prettier
 
 - Start creating your theme: your colours, install fonts, build your page templates, menus, header...
 - Delete AI-AGENT.md, and delete this README.md file as well to create your own.
-- use the parts/dynamic-partials/blocks/<your-template-part>.php to create new tempalte parts.
+- use the dynamic-partials-plugin/blocks/<your-template-part>.php to create new tempalte parts.
 	- they will look like a placeholder in the editor
 	- in the frontend, the php will be run
 	- you can include
@@ -66,7 +66,7 @@ phpcs, phpcbf, eslint, stylelint, prettier
 ---
 
 To use custom php, don't create files like `front-page.php`,
-And we don't use shortcodes anymore, so use template parts inserted as patterns (under /patterns), or as blocks if they have js in frontend (using our parts/dynamic-partials/blocks/ setup)
+And we don't use shortcodes anymore, so use template parts inserted as patterns (under /patterns), or as blocks if they have js in frontend (using our dynamic-partials-plugin/blocks/ setup)
 
 ---
 
@@ -77,7 +77,7 @@ Then follow the intructions in **Start to work** and **Browser Sync** sections
 
 I have developed a fast way to include template parts. In the Editor they are playholders, inthe frontend you use a .php template. It's a replacemente of using template-parts or shortcodes in php, whenever you need to add js to the php code. If it's just php, you can create a php patter under /patterns.
 
-Just include the template part inside ./parts/dynamic-partials/<your-partial>.php
+Just include the template part inside ./dynamic-partials-plugin/<your-partial>.php
 
 The system will create a block automatically and you will be able to insert it in the editor.
 

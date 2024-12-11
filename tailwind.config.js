@@ -4,6 +4,8 @@ module.exports = {
 		'./template-parts/**/*.php',
 		'./templates/**/*.php',
 		'./patterns/**/*.php',
+		'./dynamic-partials-plugin/**/*.php',
+		'./stock-templates/**/*.php',
 		'./parts/**/*.html',
 		'./parts/**/*.php',
 		'./inc/**/*.php',

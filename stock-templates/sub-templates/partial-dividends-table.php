@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: Dividends results
- * Slug: parts/dynamic-partials/programmatic-partials/partial-dividends-table.php
+ * Slug: stock-templates/sub-templates/partial-dividends-table.php
  * Categories: partials
  * Description: Use the slug to include it as get_template_part.
  *  We send the data of the dividend from the frontend. Actually we could have do it
@@ -45,7 +45,7 @@ if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 	>
 	<?php
 		get_template_part(
-			'parts/dynamic-partials/programmatic-partials/partial-add-to-portfolio-button',
+			'stock-templates/sub-templates/partial-add-to-portfolio-button',
 			'',
 		[ 'symbol' => $symbol ] );
 		?>

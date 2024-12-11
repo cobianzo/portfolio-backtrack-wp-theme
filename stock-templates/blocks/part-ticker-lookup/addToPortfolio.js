@@ -1,4 +1,4 @@
-import { loadTemplateAjax } from '../../loadTemplateAjax';
+import { loadTemplateAjax } from '../../../dynamic-partials-plugin/loadTemplateAjax';
 
 // @TODO: The function to add/remove from to portfolio must be in a separated lib
 
@@ -32,7 +32,7 @@ const handleAddRemoveFromPortfolio = async ( event ) => {
 	// reload the template part.
 	console.log( 'TODEL reloading tempalte part.', ticker );
 	loadTemplateAjax(
-		'parts/dynamic-partials/programmatic-partials/partial-add-to-portfolio-button',
+		'stock-templates/sub-templates/partial-add-to-portfolio-button',
 		parentContainerSelector,
 		{ symbol: ticker }
 	);

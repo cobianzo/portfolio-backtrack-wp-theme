@@ -1,0 +1,6 @@
+{
+	"php-partials-path": "/stock-templates/blocks",
+	"js-path": "/build",
+	"js-source-path": "/stock-templates/blocks"
+}
+

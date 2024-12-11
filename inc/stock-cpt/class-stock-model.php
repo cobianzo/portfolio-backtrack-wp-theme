@@ -1,15 +1,29 @@
 <?php
 
 /**
- * The CPT, for now, is generated using the plugin SCF.
- * @TODO: So it's defined in the DB, but we could export it into code. (we should)
+ * Definition of the post type, any custom meta to expose it to the endpoint.
+ * We can modify the controller for this custom post type
  */
-class Stock_CPT {
+class Stock_Model {
+
+	const POST_TYPE = 'stock'; // ready to create the cpt programmatically
 
 	public static function init() {
+		// Initialization logic here
+		add_action( 'init', [ __CLASS__, 'register_cpt' ] );
+	}
+
+	public static function register_cpt() {
+		/**
+		 * The CPT, for now, is generated using the plugin SCF.
+		 * @TODO: So it's defined in the DB, but we could export it into code. (we should)
+		 */
 	}
 
 
+
+	// ======================
+	// from here primitive CRUD to get the post and the post meta
 
 	public static function get_stock_post_by_symbol( string $symbol ): int {
 		$post_name = sanitize_title( $symbol );
@@ -79,5 +93,3 @@ class Stock_CPT {
 		return true;
 	}
 }
-
-Stock_CPT::init();

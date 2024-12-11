@@ -1,4 +1,10 @@
+edit config.php to set the folder for the
+- php templates
+- where to include the js files for the
+
 This folder deserves a little explanation. It's already mentioned in the README.md, but here we repeat it.
+
+> Note: we need to restart wp scripts every time we create a new block dynamic template part with frontend js.
 
 We want to use `shortcodes` in the editor. But shortcodes are deprecated.
 We can use /patterns and create a php file which can be inserted in the editor as a Pattern.

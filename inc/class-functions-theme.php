@@ -16,12 +16,14 @@ class Functions_Theme {
 			echo "<script>var ajaxurl = '" . esc_url( admin_url( 'admin-ajax.php' ) ) . "';</script>";
 		});
 
-
-		require_once dirname( __DIR__ ) . '/parts/dynamic-partials/class-dynamic-partials.php';
+		require_once dirname( __DIR__ ) . '/dynamic-partials-plugin/class-dynamic-partials.php';
 		require_once dirname( __DIR__ ) . '/inc/stocks-apis/class-internal-stock-api.php';
-		require_once dirname( __DIR__ ) . '/inc/class-stock-cpt.php';
+
+		require_once dirname( __DIR__ ) . '/inc/user/class-user-controller.php';
+		require_once dirname( __DIR__ ) . '/inc/stock-cpt/class-stock-model.php';
+
+		// to rename
 		require_once dirname( __DIR__ ) . '/inc/class-stock-frontend.php';
-		require_once dirname( __DIR__ ) . '/inc/class-stock-backend.php';
 	}
 
 	/**

@@ -108,7 +108,7 @@
 		<!-- /wp:buttons -->
 	</div>
 	<!-- /wp:group -->
-	</div>
+</div>
 	<!-- /wp:group -->
 
 	</form>
