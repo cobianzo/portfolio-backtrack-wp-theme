@@ -12,6 +12,7 @@
  */
 
 if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+	// @TODO: refactor this, we shouldnt use extract.
 	$POST_args = Dynamic_Partials::get_postdata_as_args_in_template( [ 'symbol' ] );
 	extract( $POST_args );
 	// this gives us access to $symbol
@@ -25,7 +26,9 @@ if ( ! $already_in_portfolio ) :
 	?>
 	<div id="add-to-portfolio-button" class="wp-block-button has-custom-width wp-block-button__width-100 flex items-center justify-center">
 			<button class="wp-block-button__link wp-element-button"
-				data-ticker="<?php echo esc_attr( $symbol ); ?>">
+				data-ticker="<?php echo esc_attr( $symbol ); ?>"
+				data-action="add"
+				onclick="handleAddRemoveFromPortfolio(event)">
 				Add <b><?php echo esc_html( $symbol ); ?></b> to portfolio
 			</button>
 	</div>
@@ -35,7 +38,9 @@ else :
 
 	<div id="remove-from-portfolio-button" class="wp-block-button has-custom-width wp-block-button__width-100 flex items-center justify-center">
 			<button class="wp-block-button__link wp-element-button"
-				data-ticker="<?php echo esc_attr( $symbol ); ?>">
+				data-ticker="<?php echo esc_attr( $symbol ); ?>"
+				data-action="remove"
+				onclick="handleAddRemoveFromPortfolio(event)">
 				Remove <b><?php echo esc_html( $symbol ); ?></b> from portfolio
 			</button>
 	</div>

@@ -3,7 +3,6 @@ import { setupShowResultsButton } from './part-ticker-lookup/divsTable';
 import { setupTickerSearch } from './part-ticker-lookup/lookupticker';
 import { loadTemplateAjax } from '../loadTemplateAjax';
 import { setupAddToPortfolio } from './part-ticker-lookup/addToPortfolio';
-import { setupRemoveFromPortfolio } from './part-ticker-lookup/removeFromPortfolio';
 // GENERIC VARIABLES AND FUNCTIONS, MEANT TO BE USED BY OTHER COMPONENTS IN THE PAGE.
 // ==================================
 // ==================================
@@ -24,7 +23,6 @@ window.setSelectedTicker = ( tickerInfo ) => {
 };
 window.clearSelectedTicker = () => window.setSelectedTicker( null );
 
-
 // ==================================
 // ==================================
 // ==================================
@@ -34,8 +32,7 @@ window.clearSelectedTicker = () => window.setSelectedTicker( null );
 domReady( () => {
 	setupTickerSearch( '#ticker-lookup' );
 	setupShowResultsButton( '#ticker-lookup-form', '#ticker-search-results' );
-	setupAddToPortfolio( '.coco-dynamic-block-wrapper', '#add-to-portfolio-button button' );
-	setupRemoveFromPortfolio( '.coco-dynamic-block-wrapper', '#remove-from-portfolio-button button' );
+	setupAddToPortfolio();
 
 	// Test  @TODELETE
 	const testButton = document.querySelector( '#my-test' );
@@ -44,10 +41,12 @@ domReady( () => {
 		console.log( 'testing:' );
 
 		loadTemplateAjax(
-			'parts/dynamic-partials/programmatic-partials/partial-dividends-results',
+			'parts/dynamic-partials/programmatic-partials/partial-dividends-table',
 			'#container-test',
-			{ "data": { "2001": { "title" : "a"}, "2003": { "title" : "b"} },
-				"options": { "append": { "title" : "titlereforbs" } } }
+			{
+				data: { 2001: { title: 'a' }, 2003: { title: 'b' } },
+				options: { append: { title: 'titlereforbs' } },
+			}
 		);
 	} );
 } );

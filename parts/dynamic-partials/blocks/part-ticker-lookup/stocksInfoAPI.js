@@ -1,4 +1,6 @@
 import apiFetch from '@wordpress/api-fetch';
+
+// @TODO: this API must be moved to a generic folder as a lib, with other generic functions
 export const searchYahooFinanceTickers = async ( searchTerm ) => {
 	try {
 		const response = await apiFetch( {
