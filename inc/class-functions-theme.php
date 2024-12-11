@@ -21,6 +21,7 @@ class Functions_Theme {
 		require_once dirname( __DIR__ ) . '/inc/stock-api/class-internal-stock-api.php';
 		require_once dirname( __DIR__ ) . '/inc/class-stock-cpt.php';
 		require_once dirname( __DIR__ ) . '/inc/class-stock-frontend.php';
+		require_once dirname( __DIR__ ) . '/inc/class-stock-backend.php';
 	}
 
 	/**

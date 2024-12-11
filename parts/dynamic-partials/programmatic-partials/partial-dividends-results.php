@@ -13,17 +13,17 @@
  * @since      portfolio-theme 1.0.1
  */
 
-if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
-	if ( isset( $_POST['args'] ) ) {
-		$args = json_decode( stripslashes( $_POST['args'] ), true );
-		if ( isset( $args['data'] ) ) {
-			$data = $args['data'];
-		}
-		if ( isset( $args['options'] ) ) {
-			$options = $args['options'];
+
+
+	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		$POST_args = Dynamic_Partials::get_postdata_as_args_in_template( [ 'symbol', 'data', 'options' ] );
+		extract( $POST_args );
+		// this gives us access to $data and $options and $symbol
+	} else {
+		if ( isset( $args ) ) {
+			extract( $args );
 		}
 	}
-}
 	$data    = isset( $data ) ? $data : [];
 	$options = isset( $options ) ? $options : [];
 	$options = array_merge( array(
@@ -40,7 +40,16 @@ if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 		),
 	), $options );
 
+	?>
 
+  <div class="add-remove-button-wrapper pb-5">
+	 <?php
+	 get_template_part(
+		'parts/dynamic-partials/programmatic-partials/partial-add-to-portfolio-button',
+	 	'',
+		[ 'symbol' => $symbol] );
+	 ?>
+	</div>
 
-	$content = Stock_Frontend::generate_table_html( $data, $options );
-	echo $content;
+	<?php
+	echo Stock_Frontend::generate_table_html( $data, $options );

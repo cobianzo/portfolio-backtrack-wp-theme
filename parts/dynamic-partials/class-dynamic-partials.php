@@ -1,6 +1,11 @@
 <?php
 /**
- * Class Dynamic_Partials
+ * Class Dynamic_Partials.
+ *
+ * This class:
+ * 1) Registers every php file as a block in the folder
+ * 2) If there is also a js file with the same name, registers it as a view script.
+ * 3) Provides the helper that allows us to load any tempalte part in the FE easily
  *
  * @package    WordPress
  * @subpackage Portfolio_Theme
@@ -85,7 +90,12 @@ class Dynamic_Partials {
 			$register_block_options = [
 				'title'           => $block_title, // eg. Part Ticker Lookup
 				'category'        => 'widgets',
-				'render_callback' => fn ( array $attributes ): string => self::get_partial_as_html_string( $block_name ),
+				'render_callback' => function ( array $attributes ) use ( $block_name ): string {
+						ob_start();
+						include __DIR__ . "/blocks/$block_name.php";
+						$html = ob_get_clean();
+						return (string) $html;
+					}
 			];
 
 			// Check if the view script exists and register it if it does.
@@ -128,12 +138,6 @@ class Dynamic_Partials {
 			$script_name          = "script-$block_name";
 			wp_enqueue_script( $script_name );
 
-			// Retrieve all the html fro the php template and use it as a string.
-			$html = self::get_partial_as_html_string( $block_name );
-			$html = addslashes( $html ); // Escapa comillas simples y dobles
-			$html = preg_replace( '/\r?\n|\r/', ' ', $html ); // Reemplaza los saltos de línea por espacios
-
-
 			$script_inline = <<<JS
 	(function(blocks, element) {
 			blocks.registerBlockType( '$namespaced_blockname', {
@@ -157,19 +161,6 @@ JS;
 		}
 	}
 
-	/**
-	 * Include the php file for the block and return the output as a string.
-	 * The php file should print the html.
-	 *
-	 * @param string $block_name The name of the block.
-	 * @return string The HTML string.
-	 */
-	public static function get_partial_as_html_string( string $block_name ): string {
-		ob_start();
-		include __DIR__ . "/blocks/$block_name.php";
-		$html = ob_get_clean();
-		return (string) $html;
-	}
 
 
 	public function load_template_ajax() {
@@ -183,11 +174,28 @@ JS;
 		}
 
 		$template_name = sanitize_text_field( wp_unslash( $_POST['template_name'] ) );
+		if ( ! locate_template( $template_name . '.php', false, false ) ) {
+				wp_send_json_error( 'Template not found: ' . $template_name );
+				exit;
+		}
 		ob_start();
 			get_template_part( $template_name, $_POST );
 			$html = ob_get_clean();
 		wp_send_json_success( $html );
 		exit;
+	}
+
+	public static function get_postdata_as_args_in_template( array $var_names ) {
+		if ( ! defined( 'DOING_AJAX' ) || !  DOING_AJAX ) {
+			return;
+		}
+		if ( ! isset( $_POST['args'] ) ) {
+			return;
+		}
+
+		$args = json_decode( stripslashes( $_POST['args'] ), true );
+		$args = array_intersect_key( $args, array_flip( $var_names ) );
+		return $args;
 	}
 }
 

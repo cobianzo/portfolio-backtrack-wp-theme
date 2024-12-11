@@ -1,7 +1,9 @@
 import domReady from '@wordpress/dom-ready';
 import { setupShowResultsButton } from './part-ticker-lookup/divsTable';
 import { setupTickerSearch } from './part-ticker-lookup/lookupticker';
-import { loadTemplateAjax } from '../load-template-ajax';
+import { loadTemplateAjax } from '../loadTemplateAjax';
+import { setupAddToPortfolio } from './part-ticker-lookup/addToPortfolio';
+import { setupRemoveFromPortfolio } from './part-ticker-lookup/removeFromPortfolio';
 // GENERIC VARIABLES AND FUNCTIONS, MEANT TO BE USED BY OTHER COMPONENTS IN THE PAGE.
 // ==================================
 // ==================================
@@ -32,6 +34,8 @@ window.clearSelectedTicker = () => window.setSelectedTicker( null );
 domReady( () => {
 	setupTickerSearch( '#ticker-lookup' );
 	setupShowResultsButton( '#ticker-lookup-form', '#ticker-search-results' );
+	setupAddToPortfolio( '.coco-dynamic-block-wrapper', '#add-to-portfolio-button button' );
+	setupRemoveFromPortfolio( '.coco-dynamic-block-wrapper', '#remove-from-portfolio-button button' );
 
 	// Test  @TODELETE
 	const testButton = document.querySelector( '#my-test' );

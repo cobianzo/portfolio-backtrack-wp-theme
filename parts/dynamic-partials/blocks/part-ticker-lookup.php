@@ -108,7 +108,10 @@
 		<!-- /wp:buttons -->
 	</div>
 	<!-- /wp:group -->
+	</div>
+	<!-- /wp:group -->
 
+	</form>
 	<!-- wp:group {"metadata":{"name":"Group results"},"style":{"spacing":{"padding":{"top":"var:preset|spacing|50","bottom":"var:preset|spacing|50"}}},"layout":{"type":"constrained"}} -->
 	<div id="ticker-search-results" class="wp-block-group"
 		style="padding-top:var(--wp--preset--spacing--50);padding-bottom:var(--wp--preset--spacing--50)">
@@ -117,10 +120,6 @@
 		<!-- /wp:paragraph -->
 	</div>
 	<!-- /wp:group -->
-	</div>
-	<!-- /wp:group -->
-
-	</form>
 </div>
 
 

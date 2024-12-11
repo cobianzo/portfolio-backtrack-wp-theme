@@ -1,11 +1,12 @@
 import { tickerExists, getTickerHistorical } from "./stocksInfoAPI";
-import { loadTemplateAjax } from "../../load-template-ajax";
+import { loadTemplateAjax } from "../../loadTemplateAjax";
 
 // Load the dividends by submitting the input with the ticker selected
 // ==================================
 export const setupShowResultsButton = ( formSelector, resultsSelector ) => {
 	const form = document.querySelector( formSelector );
 
+	// Show Results!
 	form.addEventListener( 'submit', async (e) => {
 
 		// dont do the default action
@@ -29,7 +30,7 @@ export const setupShowResultsButton = ( formSelector, resultsSelector ) => {
 		loadTemplateAjax(
 			'parts/dynamic-partials/programmatic-partials/partial-dividends-results',
 			resultsSelector,
-			{ "data": historicalData }
+			{ "data": historicalData, "symbol": currentTicker.symbol }
 		);
 
 	} );

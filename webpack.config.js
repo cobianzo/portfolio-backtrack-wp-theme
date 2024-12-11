@@ -10,7 +10,7 @@ glob.sync( './parts/dynamic-partials/blocks/**/*.js' ).forEach( ( file ) => {
 	entryPoints[ entry ] = path.resolve( __dirname, file );
 } );
 
-entryPoints[ 'load-template-ajax' ] = './parts/dynamic-partials/load-template-ajax.js';
+// entryPoints[ 'load-template-ajax' ] = './parts/dynamic-partials/loadTemplateAjax.js';
 
 module.exports = {
 	...defaultConfig,
