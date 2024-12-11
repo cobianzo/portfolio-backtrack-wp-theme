@@ -21,7 +21,7 @@ function ddie( $var_arg ): void {
 
 // Test 1 - the API for Yahoo Finance
 if ( isset( $_GET['w-test'] ) && $_GET['w-test'] === '1' ) :
-	require_once get_template_directory() . '/inc/stock-api/class-external-api-calls.php';
+	require_once get_template_directory() . '/inc/stocks-apis/class-external-api-calls.php';
 	$p = External_API_Calls::get_instance()->search_tickers( 'GOOGL', true );
 	ddie( $p );
 endif;
@@ -29,8 +29,8 @@ endif;
 // Test scrap with
 if ( isset( $_GET['w-test'] ) && $_GET['w-test'] === '2' ) :
 
-	require_once get_template_directory() . '/inc/stock-api/class-external-api-calls.php';
-	$p = External_API_Calls::get_instance()->get_dividends_years_range( 'JNJ', 10, 2024 );
+	require_once get_template_directory() . '/inc/stocks-apis/class-external-api-calls.php';
+	$p = External_API_Calls::get_instance()->get_dividends_years_range( 'JNJ' );
 	ddie( $p );
 
 

@@ -19,9 +19,9 @@ class Internal_Stock_API {
 			array(
 				'methods'             => 'GET',
 				'callback'            => function ( \WP_REST_Request $request ) {
-					$stocks_api = External_API_Calls::get_instance();
+					$stocks_external_api = External_API_Calls::get_instance();
 					// TODO: use cache or transients.
-					$tickers = $stocks_api->search_tickers( $request->get_param( 'ticker' ), $request->get_param( 'unique' ) );
+					$tickers = $stocks_external_api->search_tickers( $request->get_param( 'ticker' ), $request->get_param( 'unique' ) );
 					return $tickers;
 				},
 				'permission_callback' => '__return_true',
@@ -45,8 +45,8 @@ class Internal_Stock_API {
 			array(
 				'methods'             => 'GET',
 				'callback'            => function ( \WP_REST_Request $request ) {
-					$stocks_api = External_API_Calls::get_instance();
-					$divs = $stocks_api->get_dividends_years_range( $request->get_param( 'ticker' ), 0, 0 );
+					$stocks_external_api = External_API_Calls::get_instance();
+					$divs = $stocks_external_api->get_dividends_years_range( $request->get_param( 'ticker' ) );
 					return $divs;
 				},
 				'permission_callback' => '__return_true',

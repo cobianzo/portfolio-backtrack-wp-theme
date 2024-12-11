@@ -90,12 +90,14 @@ class External_API_Calls {
 	}
 
 	// WIP. Can be improved. Include caching.
-	public function get_dividends_years_range( string $symbol, int $years = 0, int $last_year = 0 ) {
+	public function get_dividends_years_range( string $symbol, bool $use_db = true ) {
 
 		// Check if we have the info already in local, in the CPT 'stock'
-		$data = Stock_CPT::get_stock_historical( $symbol );
-		if ( false !== $data && is_array( $data ) ) {
-			return $data;
+		if ( $use_db ) {
+			$data = Stock_CPT::get_stock_historical( $symbol );
+			if ( false !== $data && is_array( $data ) ) {
+				return $data;
+			}
 		}
 
 		$args = array(
@@ -158,17 +160,12 @@ class External_API_Calls {
 			}
 		}
 
-		// keep this results, saving them in our DB
+		// with this hook we can update the db with the values.
+		do_action( 'stock_historical_data_updated', $symbol, $summary );
+
+		// keep this results, saving them in our DB @TODO: delete and apply in the hoook action.
 		Stock_CPT::create_stock_post( $symbol );
 		Stock_CPT::update_stock_historical( $symbol, $summary );
-
-		// reduce the rang
-		$end_year   = $last_year ? $last_year : gmdate( 'Y' );
-		$start_year = $years ? $end_year - $years : 0;
-		$summary    = array_filter( $summary,
-			fn ( $year ) => $year >= $start_year && $year <= $end_year,
-			ARRAY_FILTER_USE_KEY
-		);
 
 		return $summary;
 	}
