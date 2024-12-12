@@ -1,6 +1,8 @@
 import { loadTemplateAjax } from '../../../dynamic-partials-plugin/loadTemplateAjax';
 
-// @TODO: The function to add/remove from to portfolio must be in a separated lib
+// @TODO: this handle is not exclusive of this block. thats why
+// The function to add/remove from to portfolio must be in a separated lib
+// As a CRUD, then called in the handler
 
 const handleAddRemoveFromPortfolio = async ( event ) => {
 	// conditions - the partial must be wrapped in a container with id
@@ -29,12 +31,20 @@ const handleAddRemoveFromPortfolio = async ( event ) => {
 		console.error( 'Error en la solicitud AJAX setupAddToPortfolio:', error );
 	} // end try/catch
 
-	// reload the template part.
+	// reload the template part. This can be async
 	console.log( 'TODEL reloading tempalte part.', ticker );
 	loadTemplateAjax(
 		'stock-templates/sub-templates/partial-add-to-portfolio-button',
 		parentContainerSelector,
 		{ symbol: ticker }
+	);
+
+	// Reload the portoflio tickers
+	const parentPortfolioContainerSelector = `[data-template-container="portfolio-wrapper"]`;
+	loadTemplateAjax(
+		'stock-templates/blocks/part-portfolio-list',
+		parentPortfolioContainerSelector,
+		{}
 	);
 };
 

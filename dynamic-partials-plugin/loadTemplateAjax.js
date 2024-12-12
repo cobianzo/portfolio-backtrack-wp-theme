@@ -9,7 +9,13 @@ export const loadTemplateAjax = async ( templateName, containerSelector, args = 
 	formdata.append( 'nonce', window.myJS.nonce );
 
 	const container = document.querySelector( containerSelector );
-
+	if ( ! container ) {
+		console.error(
+			'loadTemplateAjax called but we didnt find the container:',
+			containerSelector
+		);
+		return;
+	}
 	try {
 		const response = await fetch( window.myJS.ajaxurl, {
 			method: 'POST',
