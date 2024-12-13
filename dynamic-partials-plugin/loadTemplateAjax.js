@@ -8,8 +8,8 @@ export const loadTemplateAjax = async ( templateName, containerSelector, args = 
 	formdata.append( 'args', JSON.stringify( args ) );
 	formdata.append( 'nonce', window.myJS.nonce );
 
-	const container = document.querySelector( containerSelector );
-	if ( ! container ) {
+	const containerAll = document.querySelectorAll( containerSelector );
+	if ( ! containerAll ) {
 		console.error(
 			'loadTemplateAjax called but we didnt find the container:',
 			containerSelector
@@ -25,7 +25,9 @@ export const loadTemplateAjax = async ( templateName, containerSelector, args = 
 		const result = await response.json();
 
 		if ( result.success ) {
-			container.innerHTML = result.data;
+			containerAll.forEach( ( container ) => {
+				container.innerHTML = result.data;
+			} );
 		} else {
 			console.error( 'Error en la respuesta loadTemplateAjax:', result.data );
 		}

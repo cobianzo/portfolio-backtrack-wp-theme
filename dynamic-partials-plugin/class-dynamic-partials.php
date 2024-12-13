@@ -100,7 +100,9 @@ class Dynamic_Partials {
 						$config      = json_decode( $config_file, true );
 						$blocks_dir  = get_template_directory() . $config['php-partials-path'];
 						ob_start();
+							echo '<div data-dynamic-partial="' . $block_name . '">';
 							include $blocks_dir . '/' . $block_name . '.php';
+							echo '</div>';
 						$html = ob_get_clean();
 						return (string) $html;
 					}

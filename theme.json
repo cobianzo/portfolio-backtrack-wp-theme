@@ -2,7 +2,9 @@
 	"customTemplates": [
 		{
 			"name": "page-no-title",
-			"postTypes": [ "page" ],
+			"postTypes": [
+				"page"
+			],
 			"title": "Page No Title"
 		}
 	],
@@ -98,7 +100,14 @@
 					"slug": "80"
 				}
 			],
-			"units": [ "%", "px", "em", "rem", "vh", "vw" ]
+			"units": [
+				"%",
+				"px",
+				"em",
+				"rem",
+				"vh",
+				"vw"
+			]
 		},
 		"typography": {
 			"defaultFontSizes": false,
@@ -110,7 +119,9 @@
 							"fontFamily": "Manrope",
 							"fontStyle": "normal",
 							"fontWeight": "200 800",
-							"src": [ "file:./assets/fonts/manrope/Manrope-VariableFont_wght.woff2" ]
+							"src": [
+								"file:./assets/fonts/manrope/Manrope-VariableFont_wght.woff2"
+							]
 						}
 					],
 					"fontFamily": "Manrope, sans-serif",
@@ -123,7 +134,9 @@
 							"fontFamily": "\"Fira Code\"",
 							"fontStyle": "normal",
 							"fontWeight": "300 700",
-							"src": [ "file:./assets/fonts/fira-code/FiraCode-VariableFont_wght.woff2" ]
+							"src": [
+								"file:./assets/fonts/fira-code/FiraCode-VariableFont_wght.woff2"
+							]
 						}
 					],
 					"fontFamily": "\"Fira Code\", monospace",

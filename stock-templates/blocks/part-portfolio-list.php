@@ -1,3 +1,16 @@
+<?php
+/**
+ * Title: Portfolio List
+ * Slug: portfolio-theme/part-portfolio-list
+ *
+ * @package    WordPress
+ * @subpackage Portfolio_Theme
+ * @since      portfolio-theme 1.0
+ */
+
+ // validations
+
+?>
 <div
 	data-template-container="portfolio-wrapper"
 	class="container mx-auto bg-gray-200">

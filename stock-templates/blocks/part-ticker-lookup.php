@@ -2,15 +2,14 @@
 /**
  * Title: Ticker Lookup
  * Slug: portfolio-theme/part-ticker-lookup
- * Inserter: no
  *
  * @package    WordPress
  * @subpackage Portfolio_Theme
- * @since      portfolio-theme 1.0
+ * @since      portfolio-theme 1.0.1
  */
 
 ?>
-<div class="coco-dynamic-block-wrapper">
+<div class="ticker-lookup-form-wrapper">
 	<h1> Todo esto deberia ir </h1>
 
 	<form id="ticker-lookup-form">

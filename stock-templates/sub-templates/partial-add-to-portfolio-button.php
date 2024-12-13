@@ -4,7 +4,7 @@
  * Slug: stock-templates/sub-templates/partial-add-to-portfolio-button.php
  * Categories: partials
  * Description: Use the slug to include it as get_template_part.
- * Arguments: $ticker
+ * Arguments: $symbol
  *
  * @package    WordPress
  * @subpackage Portfolio_Theme
@@ -13,35 +13,33 @@
 
 if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 	// @TODO: refactor this, we shouldnt use extract.`
-	$POST_args = Dynamic_Partials::get_postdata_as_args_in_template( [ 'symbol' ] );
-	extract( $POST_args );
-	// this gives us access to $symbol
-} elseif ( isset( $args ) ) {
-		extract( $args );
+	$args = Dynamic_Partials::get_postdata_as_args_in_template( [ 'symbol' ] );
+} elseif ( ! isset( $args ) ) {
+	$args = [];
 }
 
-$already_in_portfolio = User_Controller::is_in_current_user_portfolio( $symbol );
+$already_in_portfolio = User_Controller::is_in_current_user_portfolio( $args['symbol'] );
 
 if ( ! $already_in_portfolio ) :
 	?>
-	<div id="add-to-portfolio-button" class="wp-block-button has-custom-width wp-block-button__width-100 flex items-center justify-center">
+	<div class="wp-block-button has-custom-width wp-block-button__width-100 flex items-center justify-center">
 			<button class="wp-block-button__link wp-element-button"
-				data-ticker="<?php echo esc_attr( $symbol ); ?>"
+				data-ticker="<?php echo esc_attr( $args['symbol'] ); ?>"
 				data-action="add"
 				onclick="handleAddRemoveFromPortfolio(event)">
-				Add <b><?php echo esc_html( $symbol ); ?></b> to portfolio
+				Add <b><?php echo esc_html( $args['symbol'] ); ?></b> to portfolio
 			</button>
 	</div>
 	<?php
 else :
 	?>
 
-	<div id="remove-from-portfolio-button" class="wp-block-button has-custom-width wp-block-button__width-100 flex items-center justify-center">
+	<div class="wp-block-button has-custom-width wp-block-button__width-100 flex items-center justify-center">
 			<button class="wp-block-button__link wp-element-button"
-				data-ticker="<?php echo esc_attr( $symbol ); ?>"
+				data-ticker="<?php echo esc_attr( $args['symbol'] ); ?>"
 				data-action="remove"
 				onclick="handleAddRemoveFromPortfolio(event)">
-				Remove <b><?php echo esc_html( $symbol ); ?></b> from portfolio
+				Remove <b><?php echo esc_html( $args['symbol'] ); ?></b> from portfolio
 			</button>
 	</div>
 	<?php

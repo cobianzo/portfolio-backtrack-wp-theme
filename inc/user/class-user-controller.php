@@ -12,10 +12,18 @@ class User_Controller {
 	 * @return void
 	 */
 	public static function init(): void {
+
+		// ticker associated to user
 		add_action( 'wp_ajax_add_to_current_user_portfolio', [ __CLASS__, 'add_to_portfolio_ajax' ] );
 		add_action( 'wp_ajax_nopriv_add_to_current_user_portfolio', [ __CLASS__, 'add_to_portfolio_ajax' ] );
 		add_action( 'wp_ajax_remove_from_current_user_portfolio', [ __CLASS__, 'remove_from_portfolio_ajax' ] );
 		add_action( 'wp_ajax_nopriv_remove_from_current_user_portfolio', [ __CLASS__, 'remove_from_portfolio_ajax' ] );
+
+		// contributions for the user, by ticker and year.
+		add_action( 'wp_ajax_add_contribution_year', [ __CLASS__, 'add_contribution_year' ] );
+		add_action( 'wp_ajax_nopriv_add_contribution_year', [ __CLASS__, 'add_contribution_year' ] );
+		add_action( 'wp_ajax_remove_contribution_year', [ __CLASS__, 'remove_contribution_year' ] );
+		add_action( 'wp_ajax_nopriv_remove_contribution_year', [ __CLASS__, 'remove_contribution_year' ] );
 	}
 
 	/**
@@ -137,6 +145,131 @@ class User_Controller {
 
 		$portfolio = get_user_meta( $user_id, 'portfolio', true );
 		return is_array( $portfolio ) ? $portfolio : [];
+	}
+
+	// CRUD for the contributions of the user in a stock along time.
+	// Every stock contributions is a new user meta, as an array where the keys are the year.
+	public static function get_contribution_year( string $symbol, int $year, ?int $user_id = null ): ?int {
+		$user_id = ( null === $user_id ) ? get_current_user_id() : (int) $user_id;
+		if ( ! $user_id ) {
+			return null;
+		}
+
+		$contributions = self::get_all_contributions_ticker( $symbol, $user_id );
+		$contribution  = isset( $contributions[ $year ] ) ? $contributions[ $year ] : 0;
+
+		return $contribution;
+	}
+
+	public static function get_all_contributions_ticker( string $ticker, ?int $user_id = null ): ?array {
+
+		// we only consider the ticker if the user has saved it in his portfolio
+		if ( ! self::is_in_current_user_portfolio( $ticker ) ) {
+			return null;
+		}
+
+		$user_id = ( null === $user_id ) ? get_current_user_id() : (int) $user_id;
+		if ( ! $user_id ) {
+			return null;
+		}
+
+		// @TODO: use cache
+		// phpcs:ignore WordPress.DB.RestrictedClasses
+		$all_contributions = get_user_meta( $user_id, 'contributions_' . $ticker, true );
+		if ( ! is_array( $all_contributions ) ) {
+			$all_contributions = [];
+		}
+
+		return $all_contributions;
+	}
+
+	public static function set_contribution_year( string $ticker, int $year, int $amount, ?int $user_id = null ) {
+		$user_id = ( null === $user_id ) ? get_current_user_id() : (int) $user_id;
+		if ( ! $user_id ) {
+			return null;
+		}
+		$current_contributions          = self::get_all_contributions_ticker( $ticker, $user_id );
+		$current_contributions[ $year ] = $amount;
+
+		ksort( $current_contributions );
+
+		return update_user_meta( $user_id, 'contributions_' . $ticker, $current_contributions );
+	}
+
+	public static function add_contribution_year( string $symbol, ?int $year = null, ?int $amount = null, int|null $user_id = null ) {
+		$is_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_POST['action'] ) && 'add_contribution_year' === $_POST['action'];
+		if ( $is_ajax ) {
+			if ( ! isset( $_POST['nonce'] ) ||
+				! wp_verify_nonce( sanitize_text_field( $_POST['nonce'] ), 'dynamic_blocks_nonce_action' ) ) {
+				wp_send_json_error( 'Nonce verification failed' );
+			}
+			$ticker  = isset( $_POST['ticker'] ) ? sanitize_text_field( wp_unslash( $_POST['ticker'] ) ) : null;
+			$year    = isset( $_POST['year'] ) ? (int) sanitize_text_field( wp_unslash( $_POST['year'] ) ) : $year;
+			$amount  = isset( $_POST['amount'] ) ? (int) sanitize_text_field( wp_unslash( $_POST['amount'] ) ) : $amount;
+			$user_id = isset( $_POST['user_id'] ) ? (int) sanitize_text_field( wp_unslash( $_POST['user_id'] ) ) : $user_id;
+		}
+
+		$user_id = ( ! $user_id ) ? get_current_user_id() : (int) $user_id;
+		if ( ! $user_id ) {
+			$return = null;
+		} else {
+			$contribution  = (int) self::get_contribution_year( $symbol, $year, $user_id );
+			$contribution += $contribution ?? 0;
+			$contribution += $amount;
+
+			$return = self::set_contribution_year( $ticker, $year, $contribution, $user_id );
+		}
+		wp_send_json_success( 'udfds' . $user_id );
+		if ( $is_ajax ) {
+			wp_send_json_success( [
+				'action' => 'add_contribution_year',
+				'return' => $return,
+			] );
+			exit;
+		}
+		return $return;
+	}
+
+	public static function remove_contribution_year( $year, $user_id = null ) {
+		// evaluate case of using ajax
+		$is_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_POST['action'] ) && 'remove_contribution_year' === $_POST['action'];
+		if ( $is_ajax ) {
+			if ( ! isset( $_POST['nonce'] ) ||
+				! wp_verify_nonce( sanitize_text_field( $_POST['nonce'] ), 'dynamic_blocks_nonce_action' ) ) {
+				wp_send_json_error( 'Nonce verification failed' );
+			}
+			$year    = isset( $_POST['year'] ) ? (int) sanitize_text_field( wp_unslash( $_POST['year'] ) ) : null;
+			$ticker    = isset( $_POST['ticker'] ) ? sanitize_text_field( wp_unslash( $_POST['ticker'] ) ) : null;
+			$user_id = isset( $_POST['user_id'] ) ? (int) sanitize_text_field( wp_unslash( $_POST['user_id'] ) ) : null;
+		}
+
+		$user_id = ( null === $user_id ) ? get_current_user_id() : (int) $user_id;
+		if ( ! $user_id || ! $year || ! $ticker ) {
+			if ( $is_ajax ) {
+				wp_send_json_error( [ 'message' => 'Missing params', $year, $ticker, $user_id ] );
+			}
+			return null;
+		}
+
+		$contributions = self::get_all_contributions_ticker( $ticker, $user_id );
+		if ( ! isset( $contributions[ $year ] ) ) {
+			if ( $is_ajax ) {
+				wp_send_json_success( true );
+			}
+			return true;
+		}
+
+		unset( $contributions[ $year ] );
+
+		if ( empty( $contributions ) ) {
+			$return = delete_user_meta( $user_id, 'contributions_' . $ticker );
+		} else {
+			$return = update_user_meta( $user_id, 'contributions_' . $ticker, $contributions );
+		}
+		if ( $is_ajax ) {
+			wp_send_json_success( $return );
+		}
+		return $return;
 	}
 }
 
