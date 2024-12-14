@@ -41,22 +41,25 @@ if ( ! count( $contributions ) ) {
 					<span class="text-lg font-bold"><?php echo esc_html( $c_year ); ?></span>
 					<span class="ml-4 text-sm">Contribution: <?php echo esc_html( '$' . number_format( $contribution, 2 ) ); ?></span>
 				</div>
-				<div class="flex items-center">
+				<form class="flex items-center"
+					onsubmit="window.dynamicPartials.handleSubmitFormAndLoadTemplateAjax(event)"
+				>
+					<input type="hidden" name="action" value="remove_contribution_year" />
+					<input type="hidden" name="ticker" value="<?php echo esc_attr( $ticker ); ?>" />
+					<input type="hidden" name="year" value="<?php echo esc_attr( $c_year ); ?>" />
+					<input type="hidden" name="template_names" value="part-edit-contribution-list" />
+					<?php wp_nonce_field( 'remove_contribution_' . $ticker, 'nonce', false ); ?>
+
 					<button class="remove-button bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2"
-					data-year="<?php echo esc_attr( $c_year ); ?>"
-					data-ticker="<?php echo esc_attr( $ticker ); ?>"
-					data-action="remove"
-					onclick="handleRemoveContribution(event)">
+						type="submit">
 						X
 					</button>
-					<button class="edit-button bg-orange-500 text-white rounded-full w-6 h-6 flex items-center justify-center"
-					data-year="<?php echo esc_attr( $c_year ); ?>"
-					data-ticker="<?php echo esc_attr( $ticker ); ?>"
-					data-action="edit"
-					onclick="handleEditContribution(event)">
-						<i class="fas fa-edit"></i>
-					</button>
-				</div>
+				</form>
 			</li>
 		<?php endforeach; ?>
 	</ul>
+
+
+	<p class="text-lg font-bold">Total: <?php
+		echo esc_html( '$' . number_format( array_sum( $contributions ), 2 ) );
+	?></p>

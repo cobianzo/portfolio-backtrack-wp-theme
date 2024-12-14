@@ -1,7 +1,6 @@
 import domReady from '@wordpress/dom-ready';
 import { setupShowResultsButton } from './part-ticker-lookup/divsTable';
 import { setupTickerSearch } from './part-ticker-lookup/lookupticker';
-import { loadTemplateAjax } from '../../dynamic-partials-plugin/loadTemplateAjax';
 import { setupAddToPortfolio } from './part-ticker-lookup/addToPortfolio';
 // GENERIC VARIABLES AND FUNCTIONS, MEANT TO BE USED BY OTHER COMPONENTS IN THE PAGE.
 // ==================================
@@ -36,11 +35,10 @@ domReady( () => {
 
 	// Test  @TODELETE
 	const testButton = document.querySelector( '#my-test' );
-	const containerTest = document.querySelector( '#container-test' );
 	testButton.addEventListener( 'click', () => {
 		console.log( 'testing:' );
 
-		loadTemplateAjax(
+		window. dynamicPartials.loadTemplateAjax(
 			'stock-templates/sub-templates/partial-dividends-table',
 			'#container-test',
 			{

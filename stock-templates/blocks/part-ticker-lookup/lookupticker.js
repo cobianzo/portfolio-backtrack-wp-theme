@@ -1,13 +1,11 @@
-import { debounce } from '../part-ticker-lookup/helpers';
-import { searchYahooFinanceTickers, tickerExists } from '../part-ticker-lookup/stocksInfoAPI';
-
+import { debounce } from './helpers';
+import { searchYahooFinanceTickers, tickerExists } from './stocksInfoAPI';
 
 // INPUT LOOKUP - Helper Función de búsqueda de tickers
 // =============================================
 
 // Setup lookup input actions to search tickers
 export const setupTickerSearch = ( inputSelector ) => {
-
 	const searchInput = document.querySelector( inputSelector );
 
 	// The handler debounded for the input typing

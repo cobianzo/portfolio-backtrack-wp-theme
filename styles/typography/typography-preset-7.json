@@ -18,7 +18,9 @@
 							"fontFamily": "Literata"
 						},
 						{
-							"src": [ "file:./assets/fonts/literata/Literata72pt-ExtraLightItalic.woff2" ],
+							"src": [
+								"file:./assets/fonts/literata/Literata72pt-ExtraLightItalic.woff2"
+							],
 							"fontWeight": "200",
 							"fontStyle": "italic",
 							"fontFamily": "Literata"
@@ -30,7 +32,9 @@
 							"fontFamily": "Literata"
 						},
 						{
-							"src": [ "file:./assets/fonts/literata/Literata72pt-LightItalic.woff2" ],
+							"src": [
+								"file:./assets/fonts/literata/Literata72pt-LightItalic.woff2"
+							],
 							"fontWeight": "300",
 							"fontStyle": "italic",
 							"fontFamily": "Literata"
@@ -42,7 +46,9 @@
 							"fontFamily": "Literata"
 						},
 						{
-							"src": [ "file:./assets/fonts/literata/Literata72pt-RegularItalic.woff2" ],
+							"src": [
+								"file:./assets/fonts/literata/Literata72pt-RegularItalic.woff2"
+							],
 							"fontWeight": "400",
 							"fontStyle": "italic",
 							"fontFamily": "Literata"
@@ -54,7 +60,9 @@
 							"fontFamily": "Literata"
 						},
 						{
-							"src": [ "file:./assets/fonts/literata/Literata72pt-MediumItalic.woff2" ],
+							"src": [
+								"file:./assets/fonts/literata/Literata72pt-MediumItalic.woff2"
+							],
 							"fontWeight": "500",
 							"fontStyle": "italic",
 							"fontFamily": "Literata"
@@ -66,7 +74,9 @@
 							"fontFamily": "Literata"
 						},
 						{
-							"src": [ "file:./assets/fonts/literata/Literata72pt-SemiBoldItalic.woff2" ],
+							"src": [
+								"file:./assets/fonts/literata/Literata72pt-SemiBoldItalic.woff2"
+							],
 							"fontWeight": "600",
 							"fontStyle": "italic",
 							"fontFamily": "Literata"
@@ -90,7 +100,9 @@
 							"fontFamily": "Literata"
 						},
 						{
-							"src": [ "file:./assets/fonts/literata/Literata72pt-ExtraBoldItalic.woff2" ],
+							"src": [
+								"file:./assets/fonts/literata/Literata72pt-ExtraBoldItalic.woff2"
+							],
 							"fontWeight": "800",
 							"fontStyle": "italic",
 							"fontFamily": "Literata"
@@ -102,7 +114,9 @@
 							"fontFamily": "Literata"
 						},
 						{
-							"src": [ "file:./assets/fonts/literata/Literata72pt-BlackItalic.woff2" ],
+							"src": [
+								"file:./assets/fonts/literata/Literata72pt-BlackItalic.woff2"
+							],
 							"fontWeight": "900",
 							"fontStyle": "italic",
 							"fontFamily": "Literata"
@@ -133,7 +147,9 @@
 							"fontFamily": "\"Fira Sans\""
 						},
 						{
-							"src": [ "file:./assets/fonts/fira-sans/FiraSans-ExtraLightItalic.woff2" ],
+							"src": [
+								"file:./assets/fonts/fira-sans/FiraSans-ExtraLightItalic.woff2"
+							],
 							"fontWeight": "200",
 							"fontStyle": "italic",
 							"fontFamily": "\"Fira Sans\""
@@ -181,7 +197,9 @@
 							"fontFamily": "\"Fira Sans\""
 						},
 						{
-							"src": [ "file:./assets/fonts/fira-sans/FiraSans-SemiBoldItalic.woff2" ],
+							"src": [
+								"file:./assets/fonts/fira-sans/FiraSans-SemiBoldItalic.woff2"
+							],
 							"fontWeight": "600",
 							"fontStyle": "italic",
 							"fontFamily": "\"Fira Sans\""
@@ -205,7 +223,9 @@
 							"fontFamily": "\"Fira Sans\""
 						},
 						{
-							"src": [ "file:./assets/fonts/fira-sans/FiraSans-ExtraBoldItalic.woff2" ],
+							"src": [
+								"file:./assets/fonts/fira-sans/FiraSans-ExtraBoldItalic.woff2"
+							],
 							"fontWeight": "800",
 							"fontStyle": "italic",
 							"fontFamily": "\"Fira Sans\""

@@ -199,11 +199,11 @@ class User_Controller {
 	public static function add_contribution_year( string $symbol, ?int $year = null, ?int $amount = null, int|null $user_id = null ) {
 		$is_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_POST['action'] ) && 'add_contribution_year' === $_POST['action'];
 		if ( $is_ajax ) {
+			$ticker  = isset( $_POST['ticker'] ) ? sanitize_text_field( wp_unslash( $_POST['ticker'] ) ) : null;
 			if ( ! isset( $_POST['nonce'] ) ||
-				! wp_verify_nonce( sanitize_text_field( $_POST['nonce'] ), 'dynamic_blocks_nonce_action' ) ) {
+				! wp_verify_nonce( $_POST['nonce'], 'add_contribution_' . $ticker ) ) {
 				wp_send_json_error( 'Nonce verification failed' );
 			}
-			$ticker  = isset( $_POST['ticker'] ) ? sanitize_text_field( wp_unslash( $_POST['ticker'] ) ) : null;
 			$year    = isset( $_POST['year'] ) ? (int) sanitize_text_field( wp_unslash( $_POST['year'] ) ) : $year;
 			$amount  = isset( $_POST['amount'] ) ? (int) sanitize_text_field( wp_unslash( $_POST['amount'] ) ) : $amount;
 			$user_id = isset( $_POST['user_id'] ) ? (int) sanitize_text_field( wp_unslash( $_POST['user_id'] ) ) : $user_id;
@@ -230,16 +230,16 @@ class User_Controller {
 		return $return;
 	}
 
-	public static function remove_contribution_year( $year, $user_id = null ) {
+	public static function remove_contribution_year( string $ticker = null, $year = null, $user_id = null ) {
 		// evaluate case of using ajax
 		$is_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_POST['action'] ) && 'remove_contribution_year' === $_POST['action'];
 		if ( $is_ajax ) {
+			$ticker  = isset( $_POST['ticker'] ) ? sanitize_text_field( wp_unslash( $_POST['ticker'] ) ) : null;
 			if ( ! isset( $_POST['nonce'] ) ||
-				! wp_verify_nonce( sanitize_text_field( $_POST['nonce'] ), 'dynamic_blocks_nonce_action' ) ) {
+				! wp_verify_nonce( sanitize_text_field( $_POST['nonce'] ), 'remove_contribution_' . $ticker) ) {
 				wp_send_json_error( 'Nonce verification failed' );
 			}
 			$year    = isset( $_POST['year'] ) ? (int) sanitize_text_field( wp_unslash( $_POST['year'] ) ) : null;
-			$ticker    = isset( $_POST['ticker'] ) ? sanitize_text_field( wp_unslash( $_POST['ticker'] ) ) : null;
 			$user_id = isset( $_POST['user_id'] ) ? (int) sanitize_text_field( wp_unslash( $_POST['user_id'] ) ) : null;
 		}
 

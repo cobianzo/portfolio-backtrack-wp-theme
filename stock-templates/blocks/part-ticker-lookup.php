@@ -12,6 +12,9 @@
 <div class="ticker-lookup-form-wrapper">
 	<h1> Todo esto deberia ir </h1>
 
+	<?php
+	// See js for the submit
+	?>
 	<form id="ticker-lookup-form">
 	<!-- wp:group {"metadata":{"name":"Group wrapper"},"className":"is-style-default","style":{"spacing":{"padding":{"right":"var:preset|spacing|30","left":"var:preset|spacing|30","top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"},"blockGap":"var:preset|spacing|20"}},"backgroundColor":"accent-5","layout":{"type":"constrained"}} -->
 	<div class="wp-block-group is-style-default has-accent-5-background-color has-background"
@@ -21,27 +24,37 @@
 		<!-- wp:column {"width":"100%"} -->
 		<div class="wp-block-column" style="flex-basis:100%">
 		<!-- wp:group {"layout":{"type":"constrained"}} -->
-		<div class="wp-block-group">
+		<div class="wp-block-group grid grid-cols-[1fr,minmax(100px,0.5fr)] gap-4">
 			<!-- wp:group {"metadata":{"name":"ticker field Group"},"layout":{"type":"constrained"}} -->
-			<div class="wp-block-group">
-			<!-- wp:heading -->
-			<h2 class="wp-block-heading">Ticker</h2>
-			<!-- /wp:heading -->
+			<div class="wp-block-group col-span-1">
+				<!-- wp:heading -->
+				<h2 class="wp-block-heading">Ticker</h2>
+				<!-- /wp:heading -->
 
-			<!-- wp:paragraph -->
-			<p>
+				<!-- wp:paragraph -->
 
-				<input type="text" name="ticker-lookup" id="ticker-lookup" aria-label="Stock Ticker Lookup"
-				placeholder="Enter stock ticker" aria-required="true" autocomplete="off"
-				value="TROW"
-				class="ticker-lookup-input rounded-lg border border-gray-300 p-2 pl-10 text-sm text-gray-700"
-				list="ticker-options" />
-				<!-- We'll fill the datalist with the response from Yahoo finance, once the user types the input -->
-				<datalist id="ticker-options">
-				</datalist>
 
-			</p>
-			<!-- /wp:paragraph -->
+					<input type="text" name="ticker-lookup" id="ticker-lookup" aria-label="Stock Ticker Lookup"
+					placeholder="Enter stock ticker" aria-required="true" autocomplete="off"
+					value="TROW"
+					class="ticker-lookup-input rounded-lg border border-gray-300 p-2 pl-10 text-sm text-gray-700"
+					list="ticker-options" />
+					<!-- We'll fill the datalist with the response from Yahoo finance, once the user types the input -->
+					<datalist id="ticker-options">
+					</datalist>
+
+
+				<!-- /wp:paragraph -->
+			</div>
+			<!-- /wp:group -->
+
+			<!-- wp:group -->
+			<div class="wp-block-group col-span-1 flex flex-col justify-end">
+				<button class="wp-block-button__link wp-element-button text-sm"
+					type="submit"
+					style="padding-top:var(--wp--preset--spacing--20);padding-right:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--20);padding-left:var(--wp--preset--spacing--20)">
+					Show results
+				</button>
 			</div>
 			<!-- /wp:group -->
 		</div>
@@ -50,45 +63,14 @@
 		<!-- /wp:column -->
 
 		<!-- wp:column {"width":"100%"} -->
-		<div class="wp-block-column" style="flex-basis:100%">
-		<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
-		<div class="wp-block-group">
-			<!-- wp:group {"metadata":{"name":"ticker field Group"},"layout":{"type":"constrained"}} -->
-			<div class="wp-block-group">
-			<!-- wp:heading {"level":3} -->
-			<h3 class="wp-block-heading">Years</h3>
-			<!-- /wp:heading -->
-
-			<!-- wp:paragraph -->
-			<p>
-				<input type="number" name="years-long" id="years-long" aria-label="Years to go back"
-				placeholder="Enter years to go back" aria-required="true"
-				class="rounded-lg border border-gray-300 p-2 text-sm text-gray-700 min-w-[100px]" min="1" max="10" />
-			</p>
-			<!-- /wp:paragraph -->
-			</div>
-			<!-- /wp:group -->
-
-			<!-- wp:group {"metadata":{"name":"ticker field Group"},"layout":{"type":"constrained"}} -->
-			<div class="wp-block-group">
-			<!-- wp:heading {"level":3} -->
-			<h3 class="wp-block-heading">Last year</h3>
-			<!-- wp:paragraph {"className":"text-sm text-gray-600 italic"} -->
-			<p class="text-sm text-gray-600 italic">Write the year you want to go back from.</p>
-			<!-- /wp:paragraph -->
-			<!-- /wp:heading -->
-
-			<!-- wp:paragraph -->
-			<p>
-				<input type="number" name="last-year" id="last-year" aria-label="Last year" placeholder="Enter last year"
-				aria-required="true" class="rounded-lg border border-gray-300 p-2 text-sm text-gray-700 min-w-[100px]"
-				min="2000" max="<?php echo esc_attr( gmdate( 'Y' ) ); ?>" />
-			</p>
-			<!-- /wp:paragraph -->
-			</div>
-			<!-- /wp:group -->
-		</div>
-		<!-- /wp:group -->
+		<?php
+		 	$partial_subtemplate = 'stock-templates/sub-templates/partial-show-ticker-info';
+		?>
+		<div class="wp-block-column" style="flex-basis:100%"
+				data-dynamic-partial="<?php echo esc_attr( $partial_subtemplate ); ?>">
+			<?php
+			get_template_part( $partial_subtemplate, '', [ 'symbol' => null ] );
+			?>
 		</div>
 		<!-- /wp:column -->
 	</div>

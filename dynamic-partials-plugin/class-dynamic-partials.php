@@ -68,12 +68,18 @@ class Dynamic_Partials {
 
 		// simply explose the myJS.ajaxurl and nonce variables.
 		add_action( 'wp_enqueue_scripts', function () {
-			// expose JS vars
-			wp_register_script( 'dummy-script', '', [], '1.0.0', true );
-			wp_add_inline_script( 'dummy-script', 'var myJS = {
+			// expose JS vars and generic methods
+			$asset_file = include get_stylesheet_directory() . "/build/dynamic-partials-public-helpers.asset.php";
+			wp_register_script( 'dynamic-partials-public-helpers',
+				get_stylesheet_directory_uri() . "/build/dynamic-partials-public-helpers.js",
+				$asset_file['dependencies'],
+				$asset_file['version'],
+				true );
+
+			wp_add_inline_script( 'dynamic-partials-public-helpers', 'var myJS = {
 					ajaxurl : "' . admin_url( 'admin-ajax.php' ) . '",
 					nonce : "' . wp_create_nonce( 'dynamic_blocks_nonce_action' ) . '" }', 'before' );
-			wp_enqueue_script( 'dummy-script' );
+			wp_enqueue_script( 'dynamic-partials-public-helpers' );
 		} );
 
 		// @BOOK:LOADTEMPLATEAJAX
@@ -117,6 +123,7 @@ class Dynamic_Partials {
 				$view_script_url    = get_stylesheet_directory_uri() . "/build/$block_name.js";
 				$asset_file         = include get_stylesheet_directory() . "/build/$block_name.asset.php";
 				$dependencies       = empty( $asset_file['dependencies'] ) ? [] : $asset_file['dependencies'];
+				$dependencies[]     = 'dynamic-partials-public-helpers';
 				$version            = empty( $asset_file['version'] ) ? [] : $asset_file['version'];
 				wp_register_script( $view_script_handle, $view_script_url, $dependencies, $version, true );
 				$register_block_options['view_script'] = $view_script_handle;

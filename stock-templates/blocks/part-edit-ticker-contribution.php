@@ -26,10 +26,14 @@ if ( empty( $symbol ) ) {
 ?>
 <div class="bg-white rounded-lg shadow-lg p-8">
 
-	<form id="ticker-contribution-form"
-		class="flex flex-row items-end justify-between"
-		data-ticker="<?php echo esc_attr( $symbol ); ?>"
-		>
+	<form
+		data-dynamic-template-reload="part-edit-contribution-list"
+		class="ticker-contribution-form flex flex-row items-end justify-between">
+
+		<input type="hidden" name="action" value="add_contribution_year" />
+		<input type="hidden" name="ticker" value="<?php echo esc_attr( $symbol ); ?>" />
+		<?php wp_nonce_field( 'add_contribution_' . $symbol, 'nonce', false ); ?>
+
 		<div class="flex flex-col mr-4 flex-1">
 			<label for="amount" class="block text-sm font-medium text-gray-700">Amount</label>
 			<input type="number" pattern="[0-9]*" inputmode="numeric" id="amount" name="amount"

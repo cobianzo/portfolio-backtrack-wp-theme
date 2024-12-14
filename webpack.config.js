@@ -13,7 +13,7 @@ glob.sync( '.' + config[ 'js-source-path' ] + '/*.js' ).forEach( ( file ) => {
 	entryPoints[ entry ] = path.resolve( __dirname, file );
 } );
 
-// entryPoints[ 'load-template-ajax' ] = './dynamic-partials-plugin/loadTemplateAjax.js';
+entryPoints[ 'dynamic-partials-public-helpers' ] = './dynamic-partials-plugin/public-helpers.js';
 
 module.exports = {
 	...defaultConfig,

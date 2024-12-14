@@ -1,5 +1,4 @@
 import { tickerExists, getTickerHistorical } from './stocksInfoAPI';
-import { loadTemplateAjax } from '../../../dynamic-partials-plugin/loadTemplateAjax';
 
 // Load the dividends by submitting the input with the ticker selected
 // ==================================
@@ -25,7 +24,7 @@ export const setupShowResultsButton = ( formSelector, resultsSelector ) => {
 		const historicalData = await getTickerHistorical( currentTicker.symbol );
 		console.log( `%cTODELETE: historical data `, 'font-size:2rem;', historicalData );
 		// Load the table of dividends
-		loadTemplateAjax(
+		window.dynamicPartials.loadTemplateAjax(
 			'stock-templates/sub-templates/partial-dividends-table',
 			resultsSelector,
 			{ data: historicalData, symbol: currentTicker.symbol }
