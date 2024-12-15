@@ -24,6 +24,7 @@ class Functions_Theme {
 
 		// to rename
 		require_once dirname( __DIR__ ) . '/inc/class-stock-frontend.php';
+		require_once dirname( __DIR__ ) . '/inc/class-stock-calculations.php';
 	}
 
 	/**

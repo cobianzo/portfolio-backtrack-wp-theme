@@ -199,7 +199,7 @@ class User_Controller {
 	public static function add_contribution_year( string $symbol, ?int $year = null, ?int $amount = null, int|null $user_id = null ) {
 		$is_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_POST['action'] ) && 'add_contribution_year' === $_POST['action'];
 		if ( $is_ajax ) {
-			$ticker  = isset( $_POST['ticker'] ) ? sanitize_text_field( wp_unslash( $_POST['ticker'] ) ) : null;
+			$ticker = isset( $_POST['ticker'] ) ? sanitize_text_field( wp_unslash( $_POST['ticker'] ) ) : null;
 			if ( ! isset( $_POST['nonce'] ) ||
 				! wp_verify_nonce( $_POST['nonce'], 'add_contribution_' . $ticker ) ) {
 				wp_send_json_error( 'Nonce verification failed' );
@@ -234,9 +234,9 @@ class User_Controller {
 		// evaluate case of using ajax
 		$is_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_POST['action'] ) && 'remove_contribution_year' === $_POST['action'];
 		if ( $is_ajax ) {
-			$ticker  = isset( $_POST['ticker'] ) ? sanitize_text_field( wp_unslash( $_POST['ticker'] ) ) : null;
+			$ticker = isset( $_POST['ticker'] ) ? sanitize_text_field( wp_unslash( $_POST['ticker'] ) ) : null;
 			if ( ! isset( $_POST['nonce'] ) ||
-				! wp_verify_nonce( sanitize_text_field( $_POST['nonce'] ), 'remove_contribution_' . $ticker) ) {
+				! wp_verify_nonce( sanitize_text_field( $_POST['nonce'] ), 'remove_contribution_' . $ticker ) ) {
 				wp_send_json_error( 'Nonce verification failed' );
 			}
 			$year    = isset( $_POST['year'] ) ? (int) sanitize_text_field( wp_unslash( $_POST['year'] ) ) : null;
@@ -246,7 +246,12 @@ class User_Controller {
 		$user_id = ( null === $user_id ) ? get_current_user_id() : (int) $user_id;
 		if ( ! $user_id || ! $year || ! $ticker ) {
 			if ( $is_ajax ) {
-				wp_send_json_error( [ 'message' => 'Missing params', $year, $ticker, $user_id ] );
+				wp_send_json_error( [
+					'message' => 'Missing params',
+					$year,
+					$ticker,
+					$user_id,
+				] );
 			}
 			return null;
 		}

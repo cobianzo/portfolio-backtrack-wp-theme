@@ -49,6 +49,22 @@ class Stock_Model {
 		return $historical;
 	}
 
+	/**
+	 *
+	 *
+	 * @param string $symbol
+	 * @param integer $year
+	 * @return array of [year => array( divs, price_end, price_start, divs_increment, last_div_date, yield )]
+	 */
+	public static function get_stock_historical_per_year( string $symbol, int $year ) {
+		$historical = self::get_stock_historical( $symbol );
+		if ( ! $historical ) {
+			return false;
+		}
+		$historical_per_year = array_column( $historical, 'dividend', 'year' );
+		return $historical_per_year[ $year ];
+	}
+
 	// function to create a new CPT from a ticker name
 	public static function create_stock_post( string $symbol ): int {
 

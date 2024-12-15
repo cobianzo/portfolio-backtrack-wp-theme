@@ -47,3 +47,15 @@ if ( isset( $_GET['w-test'] ) && $_GET['w-test'] === '3' ) :
 
 	ddie( $html );
 endif;
+
+if ( isset( $_GET['w-test'] ) && $_GET['w-test'] === '4' ) :
+
+	add_action('init', function() {
+		$historical_jnj = Stock_Calculations::calculations_for_ticker( 'JNJ' );
+
+		$html = Stock_Frontend::generate_table_html( $historical_jnj );
+		ddie($historical_jnj);
+		ddie( $html );
+	});
+endif;
+

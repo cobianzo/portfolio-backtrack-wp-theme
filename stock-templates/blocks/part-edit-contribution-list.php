@@ -23,8 +23,9 @@ if ( ! User_Controller::is_in_current_user_portfolio( $ticker ) ) {
 	return;
 }
 
+echo $ticker. 'todel';
+
 $contributions = User_Controller::get_all_contributions_ticker( $ticker );
-$contributions = get_user_meta( get_current_user_id(), 'contributions_JNJ', true );
 
 if ( ! is_array( $contributions ) ) {
 	echo '<p class="text-red-600">Erroe retrieving contributions for ' . $ticker . '</p>';
